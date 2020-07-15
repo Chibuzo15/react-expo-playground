@@ -1,0 +1,12 @@
+{
+  "name": "test-cloud-app",
+  "displayName": "test-cloud-app",
+  "expo": {
+    "name": "test-cloud-app",
+    "slug": "test-cloud-app",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
