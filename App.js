@@ -22,30 +22,48 @@ export default function App() {
   return (
     <NavigationContainer>
       <Tab.Navigator
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-          let iconName;
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
 
-          if (route.name === 'Home') {
-            iconName = focused
-              ? <HomeSvg/>
-              : <HomeSvg/>;
-          } else if (route.name === 'Feed') {
-            iconName = focused ? <FeedSvg/> : <FeedSvg/>;
-          } else if (route.name === 'Profile'){
-            iconName = focused ? <ProfileSvg/> : <ProfileSvg/>
-          } else if (route.name === 'Cart') {
-            iconName = focused ? <CartSvg/> : <CartSvg/>
-          }
+            if (route.name === 'Home') {
+              iconName = focused
+                ? <HomeSvg
+                  fill='tomato'
+                />
+                : <HomeSvg
+                fill = 'black'
+                />;
+            } else if (route.name === 'Feed') {
+              iconName = focused ? <FeedSvg
+                fill='tomato'
+              /> : <FeedSvg
+              fill = 'black'
+              />;
+            } else if (route.name === 'Profile') {
+              iconName = focused
+              ? <ProfileSvg
+              fill = 'tomato'
+              /> : <ProfileSvg
+              fill = 'black'
+              />
+            } else if (route.name === 'Cart') {
+              iconName = focused ?
+               <CartSvg
+               fill = 'tomato'
+               /> : <CartSvg
+               fill = 'black'
+               />
+            }
 
-          // You can return any component that you like here!
-          return iconName;
-        },
-      })}
-      tabBarOptions={{
-        activeTintColor: 'tomato',
-        inactiveTintColor: 'gray',
-      }}
+            // You can return any component that you like here!
+            return iconName;
+          },
+        })}
+        tabBarOptions={{
+          activeTintColor: 'tomato',
+          inactiveTintColor: 'gray',
+        }}
       >
 
         <Tab.Screen name="Home" component={HomeScreen} />
