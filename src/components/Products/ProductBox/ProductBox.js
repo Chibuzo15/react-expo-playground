@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Dimensions, TouchableOpacity} from 'react-native';
 
-import ProductImage from './ProductImage';
+import PlaceholderImage from './ProductImage';
 
 const productBox = (props) => {
     const productBoxStyle = [styles.container,props.style];
@@ -10,7 +10,7 @@ const productBox = (props) => {
         onPress={() => props.clicked(props)}
         style={productBoxStyle}
         >
-            <ProductImage/>
+            <PlaceholderImage/>
             <Text style={styles.productName}>{props.name}</Text>
             <Text style={styles.price}>{'$' + props.price.toString()}</Text>
         </TouchableOpacity>

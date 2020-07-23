@@ -1,0 +1,46 @@
+.Button{
+    padding: 3px;
+    box-sizing: border-box;
+    background-color: none;
+    border-width: 0px;
+    width: 130px;
+    height: 40px;
+    font-family: 'Lato', sans-serif;
+}
+
+.Button:disabled{
+    background-color: #a9a9a9ad;
+    color: #797171;
+    cursor: not-allowed;
+}
+
+/* Shop related */
+.Cart{
+    background-color: black;
+    color: white;
+}
+
+/* 
+MISC
+*/
+.HomeCarousel{
+    background-color: #ffffffa3;
+    justify-content: center;
+    margin: auto;
+}
+
+.Newsletter{
+    background-color: #f7f7f7;
+    margin: auto;
+}
+
+/* responsiveness */
+@media screen and (min-width: 420px){
+    .Button{
+        width: 200px;
+        height: 60px
+    }
+    .Newsletter{
+        width: 300px
+    }
+}

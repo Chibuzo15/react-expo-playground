@@ -3,8 +3,8 @@
   "displayName": "Urvan test app",
   "icon": "./assets/icon.png",
   "expo": {
-    "name": "test-cloud-app",
-    "slug": "test-cloud-app",
+    "name": "urvan-ecommerce-app",
+    "slug": "urvan-ecommerce-app",
     "ios": {
       "bundleIdentifier": "com.urvan.testapp",
       "buildNumber": "1.0.0"
