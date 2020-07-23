@@ -5,7 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 class HomeScreen extends Component {
     render() {
-        console.log(this.props)
+        console.log(styles)
         return (
             <View style={styles.container}>
                 <Text style={styles.TitleText} >URVAN CONCEPTS TEST APP</Text>

@@ -1,30 +1,30 @@
 import React from 'react';
-import {View, TextInput} from 'react-native'
+import { Text, View, TextInput, Dimensions, StyleSheet } from 'react-native'
 
 const input = (props) => {
     let inputElement = null;
-    const inputClasses = [classes['InputElement']];
-    if (props.inValid && props.shouldValidate && props.touched){
-        inputClasses.push(classes['Invalid'])
+    const inputClasses = [styles.InputElement];
+    if (props.inValid && props.shouldValidate && props.touched) {
+        inputClasses.push(styles.Invalid)
     }
 
-    switch (props.elementType){
-        case('input'):
+    switch (props.elementType) {
+        case ('input'):
             inputElement = <TextInput
-            className={inputClasses.join(' ')}
-            {...props.elementConfig}
-            value={props.value}
-            onChange={props.changed}
+                style={inputClasses}
+                {...props.elementConfig}
+                value={props.value}
+                onChangeText={props.changed}
             />;
             break;
-        case('textarea'):
+        case ('textarea'):
             inputElement = <TextInput
-            multiline={true}
-            numberOfLines={3}
-            className={inputClasses.join(' ')}
-            {...props.elementConfig}
-            value={props.value}
-            onChange={props.changed}
+                multiline={true}
+                numberOfLines={3}
+                style={inputClasses}
+                {...props.elementConfig}
+                value={props.value}
+                onChangeText={props.changed}
             />;
             break;
         // case('select'):
@@ -41,18 +41,53 @@ const input = (props) => {
         //     break;
         default:
             inputElement = <TextInput
-            className={inputClasses.join(' ')}
-            {...props.elementConfig}
-            value={props.value}
-            onChange={props.changed}
+                className={inputClasses}
+                {...props.elementConfig}
+                value={props.value}
+                onChangeText={props.changed}
             />
     }
 
-   return (
-    <View className={classes['Input']}>
-        <Text className={classes['Label']}>{props.label}</Text>
-        {inputElement}
-    </View>
+    return (
+        <View style={styles.Input}>
+            <Text style={styles.Label}>{props.label}</Text>
+            {inputElement}
+        </View>
     );
 };
+
+const deviceWidth = Dimensions.get('window').width;
+
+const styles = StyleSheet.create({
+    Input: {
+        // width: deviceWidth,
+        // justifyContent: 'center',
+        // alignContent: 'center',
+        width: deviceWidth
+    },
+    Label: {
+        fontWeight: "bold",
+        marginBottom: 8,
+    },
+    InputElement: {
+        alignSelf: 'center',
+        borderWidth: 1,
+        padding: 10,
+        borderColor: '#ccc',
+        backgroundColor: "white",
+        width: deviceWidth * 0.8
+        // marginLeft: 10,
+        // marginRight: 10
+    },
+    Focus: {
+        backgroundColor: '#ccc',
+    },
+    Invalid: {
+        borderWidth: 1,
+        borderColor: 'red',
+        backgroundColor: '#FDA49A',
+    }
+})
+
+
 export default input;

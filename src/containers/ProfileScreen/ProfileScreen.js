@@ -3,11 +3,17 @@ import { StyleSheet, Text, View, Dimensions, StatusBar } from 'react-native';
 
 import ProfileItems from '../../components/Profile/ProfileItems/ProfileItems';
 
+import { connect } from 'react-redux';
+import * as actions from '../../store/actions/index';
+
 class ProfileScreen extends Component {
+    logout = () => {
+        this.props.onLogout(this.props.token)
+    }
     render() {
         return (
             <View style={styles.container}>
-                <StatusBar barStyle="light-content"/>
+                <StatusBar barStyle="light-content" />
                 <View style={styles.userInfo}>
                     <Text>profile image</Text>
                     <Text> Akt's profile</Text>
@@ -15,7 +21,9 @@ class ProfileScreen extends Component {
                 <View style={styles.options}>
                     <ProfileItems>Recent views</ProfileItems>
                     <ProfileItems>Settings</ProfileItems>
-                    <ProfileItems>Logout</ProfileItems>
+                    <ProfileItems
+                        clicked={this.logout}
+                    >Logout</ProfileItems>
                 </View>
             </View>
         )
@@ -39,4 +47,17 @@ const styles = StyleSheet.create({
     }
 })
 
-export default ProfileScreen;
+const mapStateToProps = state => {
+    return {
+        loggedIn: state.customer.loggedIn,
+        token: state.customer.token
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onLogout: (token) => dispatch(actions.logout(token))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileScreen);

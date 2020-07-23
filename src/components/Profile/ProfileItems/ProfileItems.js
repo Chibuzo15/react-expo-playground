@@ -1,10 +1,13 @@
 import React from 'react';
-import { View, Text, TouchableHighlight, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 const profileItems = (props) => (
-    <View style={styles.item}>
+    <TouchableOpacity
+    onPress={props.clicked}
+     style={styles.item}
+     >
         <Text style={styles.itemText}>{props.children}</Text>
-    </View>
+    </TouchableOpacity>
 )
 
 const styles = StyleSheet.create({

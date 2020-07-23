@@ -9,7 +9,15 @@ export const login = (userObj) => {
                 const expirationDate = new Date(new Date().getTime() + 3600000)
 
                 AsyncStorage.setItem('customer_token', res.data.token);
-                AsyncStorage.setItem('customer_expirationDate', expirationDate);
+                AsyncStorage.setItem('customer_expirationDate', JSON.stringify(expirationDate), (err)=> {
+                    if(err){
+                        console.log("Asyncstorage customer error");
+                        throw err;
+                    }
+                    console.log("Asyncstorage customer success");
+                }).catch((err)=> {
+                    console.log("error is: " + err);
+                });
                 AsyncStorage.setItem('customer_userId', res.data.customer._id)
                 dispatch(loginSuccess(res.data, res.data.token))
 

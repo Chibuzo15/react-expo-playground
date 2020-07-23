@@ -7,7 +7,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StyleSheet, Text, View } from 'react-native';
 import HomeScreen from './src/containers/HomeScreen/HomeScreen';
 
-import Profile from './src/containers/ProfileScreen/ProfileScreen';
+import ProfileNavStack from './src/Navigation/ProfileStack';
 import ProductNavStack from './src/Navigation/ProductStack';
 import Cart from './src/containers/Cart/Cart';
 
@@ -69,7 +69,7 @@ export default function App() {
         <Tab.Screen name="Home" component={HomeScreen} />
         <Tab.Screen name="Feed" component={ProductNavStack} />
         <Tab.Screen name="Cart" component={Cart} />
-        <Tab.Screen name="Profile" component={Profile} />
+        <Tab.Screen name="Profile" component={ProfileNavStack} />
       </Tab.Navigator>
     </NavigationContainer>
   );
