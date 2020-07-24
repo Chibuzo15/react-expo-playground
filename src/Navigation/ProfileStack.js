@@ -10,7 +10,7 @@ const Stack = createStackNavigator();
 const ProfileStack = (props) => {
     return (
         <Stack.Navigator>
-            {props.loggedIn ? (
+            {true ? (
                 <>
                     <Stack.Screen name="Profile" component={ProfileScreen} />
                 </>

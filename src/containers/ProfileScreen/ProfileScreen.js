@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, Dimensions, StatusBar } from 'react-native';
 
 import ProfileItems from '../../components/Profile/ProfileItems/ProfileItems';
+import Avatar from '../../components/Profile/Avatar/Avatar';
 
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
@@ -15,8 +16,8 @@ class ProfileScreen extends Component {
             <View style={styles.container}>
                 <StatusBar barStyle="light-content" />
                 <View style={styles.userInfo}>
-                    <Text>profile image</Text>
-                    <Text> Akt's profile</Text>
+                    <Text style={styles.welcome}> Welcome user</Text>
+                    <Avatar />
                 </View>
                 <View style={styles.options}>
                     <ProfileItems>Recent views</ProfileItems>
@@ -30,7 +31,8 @@ class ProfileScreen extends Component {
     }
 }
 
-var height = Dimensions.get('window').height;
+const height = Dimensions.get('window').height;
+const deviceWidth = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
     container: {
@@ -43,7 +45,12 @@ const styles = StyleSheet.create({
         alignSelf: "stretch",
     },
     userInfo: {
-        height: height * 0.3
+        height: height * 0.3,
+        width: deviceWidth,
+    },
+    welcome: {
+        fontSize: 20,
+        textAlign: 'left'
     }
 })
 

@@ -20,7 +20,7 @@ class ProductScreen extends Component {
         index % 2 == 0 ? style = { marginLeft: 10 } : style = { marginLeft: 10, marginRight: 10 }
 
         return <ProductBox
-            clicked={(name) => this.viewProduct(name)}
+            clicked={(productData) => this.viewProduct(productData)}
             style={style}
             id = {item.id}
             key = {item.id}
@@ -31,11 +31,8 @@ class ProductScreen extends Component {
         />
     }
 
-    viewProduct = ({ name, price }) => {
-        this.props.navigation.navigate('ProductDetails', {
-            name,
-            price,
-        });
+    viewProduct = (product) => {
+        this.props.navigation.navigate('ProductDetails', product);
     }
 
     render() {
