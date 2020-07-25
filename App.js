@@ -5,10 +5,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { StyleSheet, Text, View } from 'react-native';
-import HomeScreen from './src/containers/HomeScreen/HomeScreen';
+// import HomeScreen from './src/containers/HomeScreen/HomeScreen';
 
 import ProfileNavStack from './src/Navigation/ProfileStack';
-import ProductNavStack from './src/Navigation/ProductStack';
+import HomeStack from './src/Navigation/HomeStack';
+// import ProductNavStack from './src/Navigation/ProductStack';
+import FeedStack from './src/Navigation/FeedStack';
 import Cart from './src/containers/Cart/Cart';
 
 import HomeSvg from './src/expo_svg/home_svg';
@@ -66,8 +68,8 @@ export default function App() {
         }}
       >
 
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Feed" component={ProductNavStack} />
+        <Tab.Screen name="Home" component={HomeStack} />
+        <Tab.Screen name="Feed" component={FeedStack} />
         <Tab.Screen name="Cart" component={Cart} />
         <Tab.Screen name="Profile" component={ProfileNavStack} />
       </Tab.Navigator>

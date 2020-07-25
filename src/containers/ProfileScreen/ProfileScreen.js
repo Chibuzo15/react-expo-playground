@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Dimensions, StatusBar } from 'react-native';
+import { StyleSheet,
+     Text,
+     View,
+     ScrollView,
+     Dimensions,
+      StatusBar } from 'react-native';
 
 import ProfileItems from '../../components/Profile/ProfileItems/ProfileItems';
 import Avatar from '../../components/Profile/Avatar/Avatar';
@@ -13,7 +18,7 @@ class ProfileScreen extends Component {
     }
     render() {
         return (
-            <View style={styles.container}>
+            <ScrollView style={styles.container}>
                 <StatusBar barStyle="light-content" />
                 <View style={styles.userInfo}>
                     <Text style={styles.welcome}> Welcome user</Text>
@@ -26,7 +31,7 @@ class ProfileScreen extends Component {
                         clicked={this.logout}
                     >Logout</ProfileItems>
                 </View>
-            </View>
+            </ScrollView>
         )
     }
 }
@@ -37,12 +42,11 @@ const deviceWidth = Dimensions.get('window').width;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
         // justifyContent: 'center',
     },
     options: {
         alignSelf: "stretch",
+        marginBottom: 15
     },
     userInfo: {
         height: height * 0.3,

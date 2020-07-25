@@ -42,7 +42,7 @@ const productBox = (props) => {
             </ImageBackground>
             <View style={styles.productInfo} >
                 <Text style={styles.productName}>{props.name}</Text>
-                <Text style={styles.price}>{'$' + props.price.toString()}</Text>
+                <Text style={styles.price}>{'₦' + props.price.toString()}</Text>
             </View>
         </TouchableOpacity>
     )
@@ -53,13 +53,17 @@ const device_width = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1/2,
-        // borderColor: 'grey',
-        // borderWidth: 0.5,
+        flex: 1 / 2,
         minHeight: device_height * 0.4,
         marginBottom: 10,
         borderRadius: 1.5,
-        elevation: 5
+        // For Android
+        elevation: 5,
+        // For IOS
+        shadowColor: '#606060',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.7,
+        shadowRadius: 2,
     },
     productName: {
         color: '#4f4f4f',
@@ -69,7 +73,7 @@ const styles = StyleSheet.create({
     },
     price: {
         alignSelf: 'flex-end',
-        color: '#ffbc00',
+        color: 'tomato',
         // backgroundColor: '#ffbc00',
         fontSize: 20,
         padding: 3,
@@ -82,7 +86,7 @@ const styles = StyleSheet.create({
         height: undefined
     },
     productInfo: {
-        height:'auto',
+        height: 'auto',
         backgroundColor: 'white'
     }
 })

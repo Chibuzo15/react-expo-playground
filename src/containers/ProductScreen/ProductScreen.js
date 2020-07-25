@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, FlatList, StatusBar } from 'react-native';
+import {
+    StyleSheet,
+    Text,
+    View,
+    FlatList,
+    StatusBar
+} from 'react-native';
 import { connect } from 'react-redux';
 
 import * as actions from '../../store/actions/index';
@@ -16,7 +22,7 @@ class ProductScreen extends Component {
         this.props.onGetProducts()
 
         //get number of products to format flatlist design
-        this.props.products ? this.setState({noOfProducts: this.props.products.length}) : null
+        this.props.products ? this.setState({ noOfProducts: this.props.products.length }) : null
     }
 
     renderProducts = ({ item, index }) => {
@@ -27,7 +33,7 @@ class ProductScreen extends Component {
         index % 2 == 0 ? style = { marginLeft: 10 } : style = { marginLeft: 10, marginRight: 10 }
 
         // set styling for last item
-        if ((this.state.noOfProducts - 1) === index){
+        if ((this.state.noOfProducts - 1) === index) {
             style = { marginLeft: 10, marginRight: 20 }
         }
 
@@ -58,7 +64,7 @@ class ProductScreen extends Component {
         return (
             <View style={styles.container}>
                 <StatusBar barStyle="light-content" />
-                <Text style={styles.TitleText}>Featured products</Text>
+                <Text style={styles.TitleText}>products</Text>
                 <View style={styles.productsWrapper}>
                     {products}
                 </View>
@@ -77,8 +83,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     productsWrapper: {
-        paddingTop: 20,
-        paddingBottom: 100
+        // paddingTop: 20,
+        paddingBottom: 100,
     }
 })
 

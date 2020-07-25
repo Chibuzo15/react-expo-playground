@@ -27,7 +27,7 @@ class SingleProduct extends Component {
                 </ImageBackground>
 
                 <Text style={styles.productName}>{name}</Text>
-                <Text style={styles.productPrice}>{price}</Text>
+                <Text style={styles.productPrice}>{'₦' + price.toString()}</Text>
             </View>
         )
     }
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     productPrice: {
         fontSize: 25,
         fontWeight: 'bold',
-        color: '#ffbc00',
+        color: 'tomato',
     },
     Image: {
         minWidth: 0.9 * device_width,

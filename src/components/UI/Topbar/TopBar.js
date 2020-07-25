@@ -13,7 +13,8 @@ const styles = StyleSheet.create({
     topbar:{
         height: 50,
         backgroundColor: 'white',
-        padding: 10
+        padding: 10,
+        elevation: 1
     },
     topBarText:{
         color: 'black',

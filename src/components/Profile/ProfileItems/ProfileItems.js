@@ -14,20 +14,24 @@ const styles = StyleSheet.create({
     item:{
         // alignSelf: "stretch",
         height: 100,
-        borderColor: 'grey',
-        borderWidth:0.5,
-        marginBottom: 5,
-        marginRight: 5,
+        backgroundColor: '#fcfcfc',
+        // borderColor: 'grey',
+        marginBottom: 10,
+        marginRight: 10,
         marginLeft: 5,
         borderRadius: 5,
+        // For Android
+        elevation: 2,
+        // For IOS
+        shadowColor: '#606060',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.7,
+        shadowRadius: 2,
+        justifyContent: "center"
     },
     itemText:{
         fontSize: 20,
         paddingLeft: 10,
-        // flex: 1,
-        // flexDirection: 'column',
-        // alignItems: "center",
-        // justifyContent: 'center'
     }
 })
 

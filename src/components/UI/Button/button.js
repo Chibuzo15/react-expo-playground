@@ -1,16 +1,17 @@
-import React from 'react'
+import React from 'react';
+import {View, Text, TouchableOpacity} from 'react-native'
 import classes from './button.module.css'
 
-const button = (props) => {
+const defaultButton = (props) => {
     //{[classes['Button'], classes[props.btnType]].join(' ')}
     return (
-        <button 
+        <TouchableOpacity
         onClick={props.handleClick}
         disabled={props.disabled}
         className={[classes['Button'], classes[props.btnType]].join(' ')}>
             {props.children}
-        </button>
+        </TouchableOpacity>
     )
 }
 
-export default button;
+export default deFaultButton;
