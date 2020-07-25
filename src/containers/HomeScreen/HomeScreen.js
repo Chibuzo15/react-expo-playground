@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, StatusBar } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 
@@ -8,11 +8,11 @@ class HomeScreen extends Component {
         console.log(styles)
         return (
             <View style={styles.container}>
-                <Text style={styles.TitleText} >URVAN CONCEPTS TEST APP</Text>
-                <Button
-                    title="Profile"
-                    onPress={() => this.props.navigation.navigate('Profile')}
-                />
+                <StatusBar barStyle="light-content" />
+                <View style={styles.topText}>
+                    <Text style={styles.greetingsText}>Hi, user</Text>
+                    <Text style={styles.TitleText} >WELCOME</Text>
+                </View>
             </View>
         )
     }
@@ -21,14 +21,22 @@ class HomeScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        padding: 5,
         backgroundColor: '#fff',
-        alignItems: 'center',
+        // alignItems: 'center',
         // justifyContent: 'center',
+    },
+    topText:{
+        paddingLeft: 10,
     },
     TitleText: {
         fontSize: 20,
-        fontWeight: 'bold',
-        marginTop: 30,
+        fontWeight: 'bold'
+    },
+    greetingsText: {
+        fontSize: 14,
+        color: 'grey',
+        textAlign: 'left'
     }
 });
 

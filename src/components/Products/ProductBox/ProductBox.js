@@ -31,8 +31,8 @@ const productBox = (props) => {
             style={productBoxStyle}
         >
             <ImageBackground
-            style={ImageIsLoading ? { flex:1} : {width: 100}}
-            source={ImageIsLoading ? require('./product_placeholder.jpg') : null}
+                style={ImageIsLoading ? { flex: 1 } : { width: 100 }}
+                source={ImageIsLoading ? require('./product_placeholder.jpg') : null}
             >
                 <Image
                     style={styles.Image}
@@ -40,9 +40,10 @@ const productBox = (props) => {
                     onLoad={() => setImageIsLoaded(false)}
                 />
             </ImageBackground>
-
-            <Text style={styles.productName}>{props.name}</Text>
-            <Text style={styles.price}>{'$' + props.price.toString()}</Text>
+            <View style={styles.productInfo} >
+                <Text style={styles.productName}>{props.name}</Text>
+                <Text style={styles.price}>{'$' + props.price.toString()}</Text>
+            </View>
         </TouchableOpacity>
     )
 }
@@ -52,31 +53,37 @@ const device_width = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        borderColor: 'grey',
-        borderWidth: 1,
+        flex: 1/2,
+        // borderColor: 'grey',
+        // borderWidth: 0.5,
         minHeight: device_height * 0.4,
         marginBottom: 10,
-        borderRadius: 1.5
+        borderRadius: 1.5,
+        elevation: 5
     },
     productName: {
+        color: '#4f4f4f',
         fontSize: 17,
         padding: 5,
         fontWeight: '700'
     },
     price: {
         alignSelf: 'flex-end',
-        color: '#fff',
-        backgroundColor: '#ffbc00',
+        color: '#ffbc00',
+        // backgroundColor: '#ffbc00',
         fontSize: 20,
         padding: 3,
-        margin: 2,
+        // margin: 2,
         borderRadius: 3
     },
     Image: {
         flex: 1,
         width: undefined,
         height: undefined
+    },
+    productInfo: {
+        height:'auto',
+        backgroundColor: 'white'
     }
 })
 
