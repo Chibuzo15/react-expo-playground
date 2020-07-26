@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, useRef } from 'react';
 import {
     StyleSheet,
     Text,
     View,
     ScrollView,
     Button,
+    Animated,
     StatusBar,
     TouchableHighlight
 } from 'react-native';
@@ -12,6 +13,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 
 import Card from '../../components/UI/Card/card';
 import Searchbar from '../../components/SearchBar/SearchBar';
+import MyStatusBar from '../../components/StatusBar/StatusBar';
 
 
 class HomeScreen extends Component {
@@ -27,7 +29,9 @@ class HomeScreen extends Component {
                 image: require('../../../assets/male_cloth.jpg')
             }
         ],
-        showSearch: true
+        showSearch: false,
+        fadeAnim: new Animated.Value(0),
+        headerOpacity: new Animated.Value(1)
     }
 
     handleCategoryClick = () => {
@@ -35,33 +39,63 @@ class HomeScreen extends Component {
     }
 
     handleSearchclick = () => {
+        this.setState({ showSearch: true })
+        this.fadeInSearch()
+        //hide header
+        this.state.headerOpacity.setValue(0)
+    }
 
+    handleSearchclose = () => {
+        this.setState({ showSearch: false })
+        this.fadeInHeader()
+    }
+
+    fadeInSearch = () => {
+        // show search icon
+        Animated.timing(this.state.fadeAnim, {
+            toValue: 1,
+            useNativeDriver: true,
+            duration: 300
+        }).start();
+    };
+
+    fadeInHeader = () => {
+        Animated.timing(this.state.headerOpacity, {
+            toValue: 1,
+            useNativeDriver: true,
+            duration: 300
+        }).start();
     }
 
     render() {
-        console.log(styles)
+
         return (
             <ScrollView style={styles.container}>
-                <StatusBar barStyle="light-content" />
+                {/* <StatusBar barStyle="light-content" /> */}
+                <MyStatusBar backgroundColor="#e23e22" barStyle="light-content"/>
 
                 {this.state.showSearch ?
-                    <View style={styles.searchbar}>
+                    <Animated.View style={[styles.searchbar, {
+                        opacity: this.state.fadeAnim // Bind opacity to animated value
+                    }]}>
                         <Searchbar
-                        clicked = {() => this.setState({showSearch: false})}
+                            clicked={this.handleSearchclose}
                         />
-                    </View>
+                    </Animated.View>
                     :
-                    <View style={styles.header}>
+                    <Animated.View style={[styles.header, {
+                        opacity: this.state.headerOpacity
+                    }]}>
                         <View style={styles.topText}>
                             <Text style={styles.greetingsText}>Hi, user</Text>
                             <Text style={styles.TitleText} >WELCOME</Text>
                         </View>
                         <TouchableHighlight
-                            onPress={() => this.setState({showSearch: true})}
+                            onPress={this.handleSearchclick}
                             style={styles.searchIcon}>
                             <MaterialIcons name='search' size={25} />
                         </TouchableHighlight>
-                    </View>
+                    </Animated.View>
                 }
 
 

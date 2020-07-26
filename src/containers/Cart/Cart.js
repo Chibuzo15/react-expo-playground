@@ -8,19 +8,23 @@ import {
 } from 'react-native';
 
 import Topbar from '../../components/UI/Topbar/TopBar';
+import MyStatusBar from '../../components/StatusBar/StatusBar';
 
 class Cart extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <StatusBar barStyle="light-content" />
+                {/* <StatusBar barStyle="light-content" /> */}
+                <MyStatusBar backgroundColor="#e23e22" barStyle="light-content"/>
+
                 <Topbar
                     title="Cart"
                 />
                 <View>
                     <Text style={styles.cartEmpty}>Your Cart is currently empty</Text>
                     <Button
-                        style={styles.shopNow}
+                        onPress={() => this.props.navigation.navigate('Home')}
+                        color='tomato'
                         title='Shop Now'
                     />
                 </View>
@@ -37,9 +41,6 @@ const styles = StyleSheet.create({
         fontSize: 20,
         textAlign: "center",
     },
-    shopNow: {
-        width: 100
-    }
 })
 
 export default Cart;

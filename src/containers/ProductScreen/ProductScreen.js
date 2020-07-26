@@ -12,6 +12,7 @@ import * as actions from '../../store/actions/index';
 
 import ProductBox from '../../components/Products/ProductBox/ProductBox';
 import Spinner from '../../components/UI/Spinner/Spinner';
+import MyStatusBar from '../../components/StatusBar/StatusBar';
 
 class ProductScreen extends Component {
     state = {
@@ -63,7 +64,8 @@ class ProductScreen extends Component {
             /> : <Spinner />;
         return (
             <View style={styles.container}>
-                <StatusBar barStyle="light-content" />
+                {/* <StatusBar barStyle="light-content" /> */}
+                <MyStatusBar backgroundColor="#e23e22" barStyle="light-content"/>
                 <Text style={styles.TitleText}>products</Text>
                 <View style={styles.productsWrapper}>
                     {products}

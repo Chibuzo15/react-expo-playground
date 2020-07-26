@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 
 import TopBar from '../../components/UI/Topbar/TopBar';
+import MyStatusBar from '../../components/StatusBar/StatusBar';
 
 import { FontAwesome5 } from '@expo/vector-icons';
 
@@ -12,6 +13,8 @@ class FeedScreen extends Component {
             <View
             style={styles.container}
             >
+                <MyStatusBar backgroundColor="#e23e22" barStyle="light-content"/>
+
                 <TopBar
                 title='Feed'
                 />

@@ -8,6 +8,7 @@ import { StyleSheet,
 
 import ProfileItems from '../../components/Profile/ProfileItems/ProfileItems';
 import Avatar from '../../components/Profile/Avatar/Avatar';
+import MyStatusBar from '../../components/StatusBar/StatusBar';
 
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
@@ -19,13 +20,14 @@ class ProfileScreen extends Component {
     render() {
         return (
             <ScrollView style={styles.container}>
-                <StatusBar barStyle="light-content" />
+                <StatusBar barStyle="light-content" backgroundColor="#e23e22" />
+                {/* <MyStatusBar backgroundColor="#e23e22" barStyle="light-content"/> */}
                 <View style={styles.userInfo}>
                     <Text style={styles.welcome}> Welcome user</Text>
                     <Avatar />
                 </View>
                 <View style={styles.options}>
-                    <ProfileItems>Recent views</ProfileItems>
+                    <ProfileItems>Orders</ProfileItems>
                     <ProfileItems>Settings</ProfileItems>
                     <ProfileItems
                         clicked={this.logout}
