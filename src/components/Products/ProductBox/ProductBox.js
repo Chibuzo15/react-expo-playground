@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
         // For Android
         elevation: 5,
         // For IOS
-        shadowColor: '#606060',
+        shadowColor: '#898989',
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.7,
         shadowRadius: 2,

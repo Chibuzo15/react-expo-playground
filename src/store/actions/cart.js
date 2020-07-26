@@ -7,7 +7,7 @@ export const setCart = () => {
             withCredentials: true,
         })
             .then((res) => {
-                let cartItems = res.data.items.map(item => { 
+                let cartItems = res.data.items.map(item => {
                     return {
                         id: item.item._id,
                         name: item.item.name,
@@ -69,6 +69,7 @@ export const addToCartFailed = (error) => {
 }
 
 export function removeFromCart(id) {
+    console.log('id is ', id)
     return dispatch => {
         axios.get(`/api/remove-from-cart/${id}`, {
             withCredentials: true,
@@ -78,6 +79,7 @@ export function removeFromCart(id) {
                 dispatch(removeFromCartSuccess(res.data))
                 dispatch(setCart())
             }) .catch((error) => {
+                console.log('error while removing from cart', error)
                 dispatch(removeFromCartFailure(error))
             })
     }
@@ -94,7 +96,7 @@ export const removeFromCartFailure = (error) => {
         type: actionTypes.REMOVE_FROM_CART_FAILURE,
         error: error
     }
-} 
+}
 
 export const clearCart = () => {
     return dispatch => {
@@ -108,7 +110,7 @@ export const clearCart = () => {
 }
 
 export const clearCartSuccess = () => {
-    return { 
+    return {
         type: actionTypes.CLEAR_CART_SUCCESS,
     }
 }

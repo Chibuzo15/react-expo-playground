@@ -1,5 +1,16 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, ImageBackground, Dimensions } from 'react-native';
+import {
+    View,
+    Text,
+    StyleSheet,
+    Image,
+    ImageBackground,
+    Button,
+    Dimensions
+} from 'react-native';
+
+import { connect } from 'react-redux';
+import { addToCart } from '../../../store/actions/index'
 
 // import ProductImage from '../Products/ProductBox/ProductImage';
 
@@ -11,12 +22,12 @@ class SingleProduct extends Component {
 
     render() {
         const { id, name, price, image } = this.props.route.params
-        console.log('SIngle :', name)
+
         // const {}
         return (
             <View>
                 <ImageBackground
-                    style={this.state.imageisLoading ? { width: device_width, minHeight: 300 } : {width: 100}}
+                    style={this.state.imageisLoading ? { width: device_width, minHeight: 300 } : { width: 100 }}
                     source={this.state.imageisLoading ? require('../ProductBox/product_placeholder.jpg') : null}
                 >
                     <Image
@@ -28,6 +39,13 @@ class SingleProduct extends Component {
 
                 <Text style={styles.productName}>{name}</Text>
                 <Text style={styles.productPrice}>{'₦' + price.toString()}</Text>
+                <View style={styles.addToCart}>
+                    <Button
+                        onPress={() => this.props.onAddToCart(id)}
+                        title='Add to Cart'
+                        color='tomato'
+                    />
+                </View>
             </View>
         )
     }
@@ -48,7 +66,17 @@ const styles = StyleSheet.create({
     Image: {
         minWidth: 0.9 * device_width,
         marginTop: 10
+    },
+    addToCart: {
+        width: 0.5 * device_width,
+        marginLeft: 'auto'
     }
 })
 
-export default SingleProduct;
+const mapDispatchToProps = dispatch => {
+    return {
+        onAddToCart: (product_id) => dispatch(addToCart(product_id)),
+    }
+}
+
+export default connect(null, mapDispatchToProps)(SingleProduct);
