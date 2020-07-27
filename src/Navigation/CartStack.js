@@ -1,26 +1,31 @@
-import React from 'react'
+import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { connect } from 'react-redux';
 
-import ProfileScreen from '../containers/ProfileScreen/ProfileScreen';
+import Cart from '../containers/Cart/Cart';
+import Checkout from '../containers/Checkout/Checkout';
 import Login from '../components/Profile/Login/Login';
 
 const Stack = createStackNavigator();
 
-const ProfileStack = (props) => {
+const FeedStack = (props) => {
     return (
-        <Stack.Navigator>
+        <Stack.Navigator
+            initialRouteName='CartScreen'
+        >
+            <Stack.Screen options={{ headerShown: false }} name="CartScreen" component={Cart} />
             {props.loggedIn ? (
                 <>
-                    <Stack.Screen name="Profile" component={ProfileScreen} />
+                    <Stack.Screen name="Checkout" component={Checkout} />
                 </>
             ) : (
                     <>
+                        <Stack.Screen name="Checkout" component={Checkout} />
                         <Stack.Screen name="SignIn" component={Login} />
                     </>
                 )}
         </Stack.Navigator>
-    )
+    );
 }
 
 const mapStateToProps = state => {
@@ -29,10 +34,4 @@ const mapStateToProps = state => {
     }
 }
 
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         login: (userObj) => dispatch(actions.login(userObj))
-//     }
-// }
-
-export default connect(mapStateToProps, null)(ProfileStack);
+export default connect(mapStateToProps, null)(FeedStack);

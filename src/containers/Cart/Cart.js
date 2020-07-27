@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import {
     View,
+    ScrollView,
     Text,
     StyleSheet,
     Dimensions,
     Button
 } from 'react-native';
 import { connect } from 'react-redux';
+import { useFocusEffect} from '@react-navigation/native'
+
 import * as actions from '../../store/actions/index';
 
 import Topbar from '../../components/UI/Topbar/TopBar';
 import MyStatusBar from '../../components/StatusBar/StatusBar';
 import CartItem from '../../components/Cart/CartItem/CartItem';
-import cartItem from '../../components/Cart/CartItem/CartItem';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 
 class Cart extends Component {
@@ -21,12 +23,22 @@ class Cart extends Component {
         this.props.onSetCart()
     }
 
+
+    handleCheckoutClick = () => {
+        // if (!this.props.loggedIn) {
+        //     this.props.navigation.navigate('SignIn', {
+        //         message: 'You must be logged in before checkout'
+        //     })
+        //     return
+        // }
+        this.props.navigation.navigate('Checkout')
+    }
+
     removeFromCart = (id) => {
         this.props.onRemoveFromCart(id)
     }
 
     render() {
-
         let cartItems = null;
         if (this.props.cartData && this.props.cartData.totalQty > 0 && this.props.cartData.cartItems) {
             cartItems = this.props.cartData.cartItems.map(item => {
@@ -42,9 +54,9 @@ class Cart extends Component {
             {cartItems}
             <View style={styles.total}>
                 <Text
-                style={{
-                    fontSize: 17
-                }}
+                    style={{
+                        fontSize: 17
+                    }}
                 >Total</Text>
                 <Text style={styles.totalPrice}>{this.props.cartData ? '₦' + this.props.cartData.totalPrice.toString() : null}</Text>
             </View>
@@ -52,6 +64,7 @@ class Cart extends Component {
                 activeOpacity={0.6}
                 underlayColor="#DDDDDD"
                 style={styles.checkoutButton}
+                onPress={this.handleCheckoutClick}
             >
                 <Text
                     style={{
@@ -62,7 +75,7 @@ class Cart extends Component {
             </TouchableHighlight>
         </View>
         return (
-            <View style={styles.container}>
+            <ScrollView style={styles.container}>
                 {/* <StatusBar barStyle="light-content" /> */}
                 <MyStatusBar backgroundColor="#e23e22" barStyle="light-content" />
 
@@ -77,10 +90,23 @@ class Cart extends Component {
                         title='Shop Now'
                     />
                 </View>}
-
-            </View>
+                <FetchCartData
+                    cartQty={this.props.cartData ? this.props.cartData.totalQty : null}
+                    setCart={this.props.onSetCart}
+                />
+            </ScrollView>
         )
     }
+}
+
+function FetchCartData({setCart }) {
+    useFocusEffect(
+        React.useCallback(() => {
+            setCart()
+        }, [setCart])
+    );
+
+    return null;
 }
 
 const deviceWidth = Dimensions.get('window').width;
@@ -114,7 +140,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.7,
         shadowRadius: 2,
     },
-    totalPrice:{
+    totalPrice: {
         fontSize: 22,
         fontWeight: 'bold'
     }

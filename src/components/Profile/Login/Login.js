@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Button, StyleSheet, Dimensions } from 'react-native';
 
 import Input from '../../UI/Input/Input';
+import DefaultButton from '../../UI/Button/button';
 
 import * as actions from '../../../store/actions/index';
 import { connect } from 'react-redux'
@@ -73,7 +74,7 @@ class Login extends Component {
     }
 
     inputChangedHandler = (value, controlName) => {
-        console.log('value '+ value + ' for element :'+ controlName)
+        console.log('value ' + value + ' for element :' + controlName)
         const updatedControls = {
             ...this.state.controls,
             [controlName]: {
@@ -97,9 +98,9 @@ class Login extends Component {
     }
 
     render() {
-        // console.log('Email ',this.state.controls.email.value);
-        // console.log('Password ', this.state.controls.password.value)
+        console.log('NAV Log', this.props.route.params)
 
+        // Build form
         const formElementsArray = [];
         for (let key in this.state.controls) {
             formElementsArray.push({
@@ -121,24 +122,19 @@ class Login extends Component {
             />
         })
 
-
-
-        // const message = <View style={styles.Message}>
-        //     {this.props.location.state ? this.props.location.state.message : null}
-        // </View>
-
+        // Generate message to show user if redirected from another route
+        // e.g {USER MUST BE LOGGED IN BEFORE CHECKOUT}
+        let message = null
+        if (this.props.route.params) {
+            message = <View >
+                <Text style={styles.Message}>
+                    {this.props.route.params.message ? this.props.route.params.message : null}
+                </Text>
+            </View>
+        }
         let pageContent = <View style={styles.container}>
-            {/* {message} */}
+            {message}
             {form}
-            {/* <Input
-                elementType='input'
-                elementConfig={this.state.controls.email.elementConfig}
-                value={this.state.controls.email.config.value}
-                changed={(event) => this.inputChangedHandler(event, formElement.id)}
-                inValid={!formElement.config.valid}
-                shouldValidate={formElement.config.validation}
-                touched={formElement.config.touched}
-            /> */}
             <View style={styles.Forgot}>
                 <Text> Forgot password </Text>
             </View>
@@ -148,22 +144,27 @@ class Login extends Component {
                 onPress={() => this.props.navigation.navigate('Home')}
             />
             <Button
-            title="SIGN IN"
+                title="SIGN IN"
                 onPress={this.handleLogin}
             // btnType='Cart'
             />
             <View
                 style={styles.CreateNew}>
-                {/* <NavLink
-                    to='/signup'
-                >
-                    Create new account?
-            </NavLink> */}
                 <Button
 
                     title="Create new account?"
                     onPress={() => this.props.navigation.navigate('Home')}
                 />
+            </View>
+            <DefaultButton
+            title='Create new account'
+            />
+            <View
+            style={{
+                marginTop: 20,
+            }}>
+                <Text>Testmail: tester@mail.com</Text>
+                <Text>Testpassword: test123</Text>
             </View>
         </View>;
 
@@ -222,7 +223,7 @@ const styles = StyleSheet.create({
     },
     Message: {
         color: "red",
-        fontSize: 22,
+        fontSize: 20,
         textAlign: "center",
         padding: 10,
         // box - sizing: border - box;

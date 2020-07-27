@@ -9,9 +9,10 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import ProfileNavStack from './src/Navigation/ProfileStack';
 import HomeStack from './src/Navigation/HomeStack';
+import CartStack from './src/Navigation/CartStack';
 // import ProductNavStack from './src/Navigation/ProductStack';
 import FeedStack from './src/Navigation/FeedStack';
-import Cart from './src/containers/Cart/Cart';
+// import Cart from './src/containers/Cart/Cart';
 
 import HomeSvg from './src/expo_svg/home_svg';
 import FeedSvg from './src/expo_svg/feed_svg';
@@ -70,7 +71,7 @@ export default function App() {
 
         <Tab.Screen name="Home" component={HomeStack} />
         <Tab.Screen name="Feed" component={FeedStack} />
-        <Tab.Screen name="Cart" component={Cart} />
+        <Tab.Screen name="Cart" component={CartStack} />
         <Tab.Screen name="Profile" component={ProfileNavStack} />
       </Tab.Navigator>
     </NavigationContainer>

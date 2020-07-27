@@ -2,6 +2,7 @@ import * as actionTypes from './actions';
 import axios from '../../axios';
 
 export const setCart = () => {
+    console.log('set cart called')
     return dispatch => {
         axios.get('/api/get-cart', {
             withCredentials: true,
@@ -69,7 +70,7 @@ export const addToCartFailed = (error) => {
 }
 
 export function removeFromCart(id) {
-    console.log('id is ', id)
+    // console.log('id is ', id)
     return dispatch => {
         axios.get(`/api/remove-from-cart/${id}`, {
             withCredentials: true,
