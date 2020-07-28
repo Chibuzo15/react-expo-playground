@@ -3,6 +3,7 @@ import * as actionTypes from '../actions/actions';
 const initialState = {
     orders: null,
     adminOrders: null,
+    success: null,
     error: false,
 }
 
@@ -11,12 +12,14 @@ const orderReducer = (state = initialState, action) => {
         case actionTypes.ORDER_SUCCESS:
             return {
                 ...state,
+                success: true,
                 // orders: state.orders.concat(action.order),
                 error: false
             }
         case actionTypes.ORDER_FAILED:
             return {
                 ...state,
+                success: false,
                 error: true
             }
         case actionTypes.GET_ORDERS_CUSTOMER_SUCCESS:

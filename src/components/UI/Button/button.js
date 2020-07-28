@@ -13,7 +13,7 @@ const defaultButton = (props) => {
         <TouchableHighlight
             activeOpacity={0.6}
             underlayColor="#DDDDDD"
-            style={styles.Button}
+            style={[styles.Button, props.style]}
             onPress={props.clicked}
         >
             <Text
@@ -31,6 +31,7 @@ const deviceWidth = Dimensions.get('window').width;
 const styles = StyleSheet.create({
     Button: {
         backgroundColor: 'tomato',
+        margin: 5,
         alignSelf: 'center',
         maxWidth: deviceWidth * 0.5,
         borderRadius: 30,

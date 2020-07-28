@@ -1,6 +1,8 @@
 import * as actionTypes from './actions';
 import axios from '../../axios';
 
+import {clearCart} from './cart'
+
 export const order = (orderData, token) => {
     return dispatch => {
         console.log("orderdata, token", orderData, token)
@@ -12,6 +14,7 @@ export const order = (orderData, token) => {
         axios.post('/api/add-order/', orderData, { headers: headers })
             .then(res => {
                 dispatch(orderSuccess())
+                dispatch(clearCart())
             })
             .catch((error) => {
                 dispatch(orderFailed(error))

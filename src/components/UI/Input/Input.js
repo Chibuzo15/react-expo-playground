@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
     InputElement: {
         alignSelf: 'center',
         borderWidth: 1,
+        borderRadius: 8,
         padding: 10,
         borderColor: '#ccc',
         backgroundColor: "white",

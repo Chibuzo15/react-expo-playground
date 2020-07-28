@@ -5,7 +5,8 @@ import {
     Text,
     StyleSheet,
     Dimensions,
-    Button
+    Button,
+    TouchableHighlight
 } from 'react-native';
 import { connect } from 'react-redux';
 import { useFocusEffect} from '@react-navigation/native'
@@ -15,7 +16,7 @@ import * as actions from '../../store/actions/index';
 import Topbar from '../../components/UI/Topbar/TopBar';
 import MyStatusBar from '../../components/StatusBar/StatusBar';
 import CartItem from '../../components/Cart/CartItem/CartItem';
-import { TouchableHighlight } from 'react-native-gesture-handler';
+import Loader from '../../components/UI/Spinner/Spinner';
 
 class Cart extends Component {
 
@@ -82,7 +83,7 @@ class Cart extends Component {
                 <Topbar
                     title="Cart"
                 />
-                {cartItems ? buildCart : <View>
+                {this.props.cartData && this.props.cartData.totalQty > 0 ? buildCart : <View>
                     <Text style={styles.cartEmpty}>Your Cart is currently empty</Text>
                     <Button
                         onPress={() => this.props.navigation.navigate('Home')}
@@ -114,6 +115,7 @@ const deviceWidth = Dimensions.get('window').width;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        paddingBottom: 15
     },
     cartEmpty: {
         fontSize: 20,

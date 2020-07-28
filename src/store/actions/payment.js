@@ -4,7 +4,7 @@ import {clearCart} from './cart';
 
 export const paymentSuccess = () => {
     return dispatch => {
-        dispatch(clearCart())
+        // dispatch(clearCart())
     }
 }
 

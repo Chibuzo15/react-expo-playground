@@ -1,16 +1,23 @@
 import React, { Component } from 'react';
-import { View, Text, Button, StyleSheet, Dimensions } from 'react-native';
+import {
+    View,
+    Text,
+    StyleSheet,
+    Dimensions,
+    FlatList
+} from 'react-native';
 
 import Input from '../../UI/Input/Input';
 import DefaultButton from '../../UI/Button/button';
 
 import * as actions from '../../../store/actions/index';
 import { connect } from 'react-redux'
+import { TouchableHighlight } from 'react-native-gesture-handler';
 
 class Login extends Component {
     state = {
-        email: '',
-        password: '',
+        // email: '',
+        // password: '',
         controls: {
             email: {
                 elementType: 'input',
@@ -74,7 +81,6 @@ class Login extends Component {
     }
 
     inputChangedHandler = (value, controlName) => {
-        console.log('value ' + value + ' for element :' + controlName)
         const updatedControls = {
             ...this.state.controls,
             [controlName]: {
@@ -97,10 +103,22 @@ class Login extends Component {
         this.props.login(userObj)
     }
 
-    render() {
-        console.log('NAV Log', this.props.route.params)
+    renderInput = ({item}) => {
+        const formElement = item
+        return <Input
+                // key={formElement.elementConfig.type}
+                elementType={formElement.elementType}
+                elementConfig={formElement.elementConfig}
+                value={formElement.value}
+                changed={(value) => this.inputChangedHandler(value, formElement.elementConfig.type)}
+                inValid={!formElement.valid}
+                shouldValidate={formElement.validation}
+                touched={formElement.touched}
+            />
+    }
 
-        // Build form
+    render() {
+        // Build form array
         const formElementsArray = [];
         for (let key in this.state.controls) {
             formElementsArray.push({
@@ -109,18 +127,21 @@ class Login extends Component {
             })
         }
 
-        let form = formElementsArray.map(formElement => {
-            return <Input
-                key={formElement.id}
-                elementType={formElement.config.elementType}
-                elementConfig={formElement.config.elementConfig}
-                value={formElement.config.value}
-                changed={(value) => this.inputChangedHandler(value, formElement.id)}
-                inValid={!formElement.config.valid}
-                shouldValidate={formElement.config.validation}
-                touched={formElement.config.touched}
-            />
-        })
+        // Rearrange array
+        const orderedForm = []
+        const formOrder = ['email', 'password'];
+        const itemsOrdered = [];
+        for (let i = 0; i < formOrder.length; i++) {
+            if (formElementsArray.findIndex(field => field.id === formOrder[i]) > -1) {
+                itemsOrdered.push(this.state.controls[formOrder[i]]);
+            }
+        }
+
+        let form = <FlatList
+        data={itemsOrdered}
+        renderItem={this.renderInput}
+        keyExtractor={(item) => item.elementConfig.type}
+      />
 
         // Generate message to show user if redirected from another route
         // e.g {USER MUST BE LOGGED IN BEFORE CHECKOUT}
@@ -134,35 +155,48 @@ class Login extends Component {
         }
         let pageContent = <View style={styles.container}>
             {message}
-            {form}
-            <View style={styles.Forgot}>
-                <Text> Forgot password </Text>
+            <View>
+                {form}
             </View>
-            <Button
 
-                title="Forgot password"
-                onPress={() => this.props.navigation.navigate('Home')}
-            />
-            <Button
-                title="SIGN IN"
-                onPress={this.handleLogin}
-            // btnType='Cart'
-            />
             <View
-                style={styles.CreateNew}>
-                <Button
-
-                    title="Create new account?"
+                style={{
+                    margin: 10
+                }}
+            >
+                <TouchableHighlight
+                    style={styles.Forgot}
                     onPress={() => this.props.navigation.navigate('Home')}
+                >
+                    <Text style={{ color: 'tomato' }}>
+                        Forgot password?
+                    </Text>
+                </TouchableHighlight>
+                <DefaultButton
+                    style={{
+                        margin: 10,
+                        width: deviceWidth * 0.5
+                    }}
+                    clicked={this.handleLogin}
+                    title='Login'
                 />
             </View>
-            <DefaultButton
-            title='Create new account'
-            />
+            <View>
+                <Text style={{ textAlign: 'center' }}>Already have an account?</Text>
+                <DefaultButton
+                    style={{
+                        marginTop: 10,
+                        width: deviceWidth * 0.5
+                    }}
+                    clicked={() => this.props.navigation.navigate('Home')}
+                    title='Register'
+                />
+            </View>
+
             <View
-            style={{
-                marginTop: 20,
-            }}>
+                style={{
+                    marginTop: 50,
+                }}>
                 <Text>Testmail: tester@mail.com</Text>
                 <Text>Testpassword: test123</Text>
             </View>
@@ -193,12 +227,11 @@ const deviceWidth = Dimensions.get('window').width;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        // flexFlow: column,
-        alignItems: "center",
-        // width: 80,
-        // padding: 10,
+        // alignItems: "center",
         margin: "auto",
-        // minHeight: 200,
+    },
+    formWrapper: {
+
     },
     Input: {
         width: deviceWidth,
