@@ -17,10 +17,10 @@ const defaultButton = (props) => {
             onPress={props.clicked}
         >
             <Text
-                style={{
+                style={[{
                     color: 'white',
                     textAlign: 'center'
-                }}
+                },props.textStyle]}
             >{props.title.toUpperCase()}</Text>
         </TouchableHighlight>
     )

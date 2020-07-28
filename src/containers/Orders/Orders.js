@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, ScrollView, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 import OrderItem from '../../components/Orders/OrderItem/OrderItem';
@@ -14,18 +14,28 @@ class Orders extends Component {
     render() {
         let orders = null;
         if (this.props.orders) {
-            console.log(this.props.orders)
-            this.props.order.map(order => {
-
+            // console.log(this.props.orders)
+            orders = this.props.orders.map(order => {
+                return <OrderItem
+                    key={order._id}
+                    data={order}
+                />
             })
-         }
+        }
         return (
-            <View>
+            <ScrollView style={styles.container}>
                 {orders}
-            </View>
+            </ScrollView>
         )
     }
 }
+
+const styles = StyleSheet.create({
+    container:{
+        marginTop: 15,
+        flex:1
+    }
+})
 
 const mapStateToProps = state => {
     return {
