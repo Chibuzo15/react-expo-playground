@@ -5,7 +5,7 @@ import {clearCart} from './cart'
 
 export const order = (orderData, token) => {
     return dispatch => {
-        console.log("orderdata, token", orderData, token)
+        // console.log("orderdata, token", orderData, token)
         const headers = {
             'Content-Type': 'application/json',
             'x-auth': token
@@ -13,10 +13,12 @@ export const order = (orderData, token) => {
 
         axios.post('/api/add-order/', orderData, { headers: headers })
             .then(res => {
+                console.log('add order successful')
                 dispatch(orderSuccess())
                 dispatch(clearCart())
             })
             .catch((error) => {
+                console.log('add order failed ', error)
                 dispatch(orderFailed(error))
             })
     }

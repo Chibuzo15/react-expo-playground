@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet,
-     Text,
-     View,
-     ScrollView,
-     Dimensions,
-      StatusBar } from 'react-native';
+import {
+    StyleSheet,
+    Text,
+    View,
+    ScrollView,
+    Dimensions,
+    StatusBar
+} from 'react-native';
 
 import ProfileItems from '../../components/Profile/ProfileItems/ProfileItems';
 import Avatar from '../../components/Profile/Avatar/Avatar';
@@ -27,8 +29,12 @@ class ProfileScreen extends Component {
                     <Avatar />
                 </View>
                 <View style={styles.options}>
-                    <ProfileItems>Orders</ProfileItems>
-                    <ProfileItems>Settings</ProfileItems>
+                    <ProfileItems
+                        clicked={() => this.props.navigation.navigate('Orders')}
+                    >Orders</ProfileItems>
+                    <ProfileItems
+                        clicked={() => this.props.navigation.navigate('Settings')}
+                    >Settings</ProfileItems>
                     <ProfileItems
                         clicked={this.logout}
                     >Logout</ProfileItems>

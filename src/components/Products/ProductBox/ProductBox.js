@@ -25,18 +25,25 @@ const productBox = (props) => {
 
     const [ImageIsLoading, setImageIsLoaded] = useState(true);
 
+    let baseUrl = "https://protected-springs-06155.herokuapp.com/";
+    let image_url = null
+    if (props.image) {
+        image_url = baseUrl + 'images' + props.image.replace('--', '_md')
+    }
+
     return (
         <TouchableOpacity
             onPress={() => props.clicked(productObj)}
             style={productBoxStyle}
         >
             <ImageBackground
-                style={ImageIsLoading ? { flex: 1 } : { width: 100 }}
+                style={ImageIsLoading ? { flex: 1 } : {flex:1}}
+                // source={{ uri: image_url }}
                 source={ImageIsLoading ? require('./product_placeholder.jpg') : null}
             >
                 <Image
                     style={styles.Image}
-                    source={{ uri: props.image }}
+                    source={{ uri: image_url }}
                     onLoad={() => setImageIsLoaded(false)}
                 />
             </ImageBackground>
