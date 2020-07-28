@@ -26,12 +26,12 @@ class Cart extends Component {
 
 
     handleCheckoutClick = () => {
-        // if (!this.props.loggedIn) {
-        //     this.props.navigation.navigate('SignIn', {
-        //         message: 'You must be logged in before checkout'
-        //     })
-        //     return
-        // }
+        if (!this.props.loggedIn) {
+            this.props.navigation.navigate('SignIn', {
+                message: 'You must be logged in before checkout'
+            })
+            return
+        }
         this.props.navigation.navigate('Checkout')
     }
 

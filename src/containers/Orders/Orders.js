@@ -14,7 +14,7 @@ class Orders extends Component {
     render() {
         let orders = null;
         if (this.props.orders) {
-            // console.log(this.props.orders)
+            // console.log(this.props.orders[0], 'order data')
             orders = this.props.orders.map(order => {
                 return <OrderItem
                     key={order._id}

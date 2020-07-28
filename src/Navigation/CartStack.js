@@ -20,7 +20,6 @@ const FeedStack = (props) => {
                 </>
             ) : (
                     <>
-                        <Stack.Screen name="Checkout" component={Checkout} />
                         <Stack.Screen name="SignIn" component={Login} />
                     </>
                 )}

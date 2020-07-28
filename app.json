@@ -1,7 +1,7 @@
 {
-  "name": "test-cloud-app",
+  "name": "urvan-ecommerce-app",
   "displayName": "Urvan test app",
-  "icon": "./assets/icon.png",
+  "icon": "icon.png",
   "expo": {
     "name": "urvan-ecommerce-app",
     "slug": "urvan-ecommerce-app",

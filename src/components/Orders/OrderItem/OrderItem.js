@@ -3,13 +3,20 @@ import {
     View,
     Text,
     StyleSheet,
-    ImageBackground
+    // ImageBackground
 } from 'react-native';
 import DefaultButton from '../../UI/Button/button';
+import EachProduct from './EachProduct/EachProduct';
 
 const orderItem = ({ data }) => {
-    const [imageisLoading, setImageisLoading] = useState(true);
-
+    // const [imageisLoading, setImageisLoading] = useState(true);
+    const products = data.orderdetails.product_details.map(product => {
+        console.log(product, 'a product')
+        return <EachProduct
+            key={product.id._id}
+            product={product}
+        />
+    })
     return (
         <View style={styles.container}>
             <View style={styles.identifier}>
@@ -19,33 +26,19 @@ const orderItem = ({ data }) => {
             <View
                 style={styles.productDetails}
             >
-                <ImageBackground
-                    style={imageisLoading ? styles.imagePlaceHolder : { width: 100 }}
-                    source={imageisLoading ? require('../../Products/ProductBox/product_placeholder.jpg') : null}
-                >
-                    {/* <Image
-                        style={styles.Image}
-                        source={{ uri: props.item.image }}
-                        onLoad={() => setImageisLoading(false)}
-                    /> */}
-                </ImageBackground>
-                <View style={{
-                    justifyContent:'center'
-                }}>
-                    <Text>product 1</Text>
-                </View>
+                {products}
             </View>
             <View
                 style={{
-                    padding:5,
+                    padding: 5,
                     flexDirection: 'row',
                     justifyContent: 'space-between'
                 }}
             >
                 <Text>Total Amount</Text>
-                <Text>{'₦' + data.orderdetails[0].total_price.toString()}</Text>
+                <Text>{'₦' + data.orderdetails.total_price.toString()}</Text>
             </View>
-            <View style={{marginTop: 30}}>
+            <View style={{ marginTop: 30 }}>
                 <DefaultButton
                     style={styles.button}
                     title='leave feedback'
@@ -62,7 +55,7 @@ const orderItem = ({ data }) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex:1,
+        flex: 1,
         padding: 5,
         backgroundColor: '#fcfcfc',
         borderColor: 'grey',
@@ -89,8 +82,7 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 5,
         marginTop: 10,
-        marginBottom:10,
-        flexDirection: 'row',
+        marginBottom: 10,
         justifyContent: "space-between",
         // minHeight: 100
     },
