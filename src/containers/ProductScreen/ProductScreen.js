@@ -54,7 +54,15 @@ class ProductScreen extends Component {
         this.props.navigation.navigate('ProductDetails', product);
     }
 
+
+
     render() {
+        let products_error = null;
+        if(this.props.products_error){
+            products_error = <Text style={{color: 'red', fontSize: 18}}
+            >Error getting products</Text>
+        }
+
         let products = this.props.products ?
             <FlatList
                 data={this.props.products}
@@ -70,6 +78,7 @@ class ProductScreen extends Component {
                 <View style={styles.productsWrapper}>
                     {products}
                 </View>
+                {products_error}
             </View>
         )
     }
@@ -93,7 +102,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
     return {
-        products: state.products.products
+        products: state.products.products,
+        products_error: state.products.products_error
     }
 }
 

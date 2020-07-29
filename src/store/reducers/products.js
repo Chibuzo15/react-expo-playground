@@ -53,6 +53,11 @@ const productReducer = (state = initialState, action) => {
                 uploaded_image_id: null,
                 products_error: action.error
             }
+        case actionTypes.CLEAR_PRODUCT_MESSAGES:
+            return {
+                ...state,
+                products_error: null
+            }
         default:
             return state;
     }

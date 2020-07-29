@@ -10,7 +10,8 @@ import {
 } from 'react-native';
 
 import { connect } from 'react-redux';
-import { addToCart } from '../../../store/actions/index'
+import { addToCart, clearCartMessages } from '../../../store/actions/index';
+
 
 // import ProductImage from '../Products/ProductBox/ProductImage';
 
@@ -19,10 +20,26 @@ class SingleProduct extends Component {
         imageisLoading: true
     }
 
+    componentDidMount(){
+        this.props.onClearCartMessages()
+    }
 
     render() {
-        const { id, name, price, image } = this.props.route.params
+        const { id, name, price, image, desc } = this.props.route.params
 
+        let success_message = null;
+        if(this.props.cart_success){
+           success_message = <Text
+            style={{color: 'green', fontSize: 18}}
+            >Product successfully added to cart</Text>
+        }
+
+        let error_message = null;
+        if(this.props.cart_error){
+            error_message = <Text
+            style={{color: 'red', fontSize: 18}}
+            >Error adding product to cart</Text>
+        }
         // const {}
         return (
             <View>
@@ -36,8 +53,12 @@ class SingleProduct extends Component {
                         onLoad={() => this.setState({ imageisLoading: false })}
                     />
                 </ImageBackground>
-
-                <Text style={styles.productName}>{name}</Text>
+                <>
+                    <Text style={styles.productName}>{name}</Text>
+                    <Text style={styles.productDesc}>
+                        {desc}
+                    </Text>
+                </>
                 <Text style={styles.productPrice}>{'₦' + price.toString()}</Text>
                 <View style={styles.addToCart}>
                     <Button
@@ -46,6 +67,8 @@ class SingleProduct extends Component {
                         color='tomato'
                     />
                 </View>
+                {success_message}
+                {error_message}
             </View>
         )
     }
@@ -70,13 +93,24 @@ const styles = StyleSheet.create({
     addToCart: {
         width: 0.5 * device_width,
         marginLeft: 'auto'
+    },
+    productDesc: {
+        fontSize: 18
     }
 })
+
+const mapStateToProps = state => {
+    return {
+        cart_success: state.cart.success,
+        cart_error: state.cart.error
+    }
+}
 
 const mapDispatchToProps = dispatch => {
     return {
         onAddToCart: (product_id) => dispatch(addToCart(product_id)),
+        onClearCartMessages: () => dispatch(clearCartMessages())
     }
 }
 
-export default connect(null, mapDispatchToProps)(SingleProduct);
+export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct);

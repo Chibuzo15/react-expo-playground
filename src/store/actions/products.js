@@ -32,7 +32,7 @@ export function getProducts() {
 
             })
             .catch((error) => {
-                dispatch(getProductsFailed())
+                dispatch(getProductsFailed(error))
             })
     }
 }
@@ -56,7 +56,7 @@ export const deleteProduct = (id) => {
                 dispatch(deleteProductSuccess())
             })
             .catch((error) => {
-                dispatch(getProductsFailed())
+                dispatch(deleteProductFailed())
             })
     }
 }
@@ -126,5 +126,11 @@ export const uploadProductImageFailed = (error) => {
     return {
         type: actionTypes.UPLOAD_PRODUCT_IMAGE_FAILED,
         error: error
+    }
+}
+
+export const clearProductMessages = () => {
+    return {
+        type: actionTypes.CLEAR_PRODUCT_MESSAGES
     }
 }

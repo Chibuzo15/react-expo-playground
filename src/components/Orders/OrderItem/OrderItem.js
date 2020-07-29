@@ -11,7 +11,6 @@ import EachProduct from './EachProduct/EachProduct';
 const orderItem = ({ data }) => {
     // const [imageisLoading, setImageisLoading] = useState(true);
     const products = data.orderdetails.product_details.map(product => {
-        console.log(product, 'a product')
         return <EachProduct
             key={product.id._id}
             product={product}

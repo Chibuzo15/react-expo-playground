@@ -44,6 +44,12 @@ const orderReducer = (state = initialState, action) => {
                 ...state,
                 error: action.error
             }
+        case actionTypes.CLEAR_ORDER_MESSAGES:
+            return{
+                ...state,
+                error: null,
+                success: null
+            }
         default:
             return state;
     }

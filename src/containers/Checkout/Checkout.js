@@ -27,6 +27,10 @@ class Checkout extends Component {
         }
     }
 
+    componentDidMount(){
+        this.props.onClearOrderMessages()
+    }
+
     handleInputChange = (value, field) => {
         // console.log(this.state.formValues['name'].value)
         let oldFormVal = this.state.formValues
@@ -71,6 +75,19 @@ class Checkout extends Component {
     }
 
     render() {
+        let success_message = null;
+        if(this.props.order_success){
+           success_message = <Text
+            style={{color: 'green', fontSize: 18}}
+            >Order successful</Text>
+        }
+
+        let error_message = null;
+        if(this.props.order_failed){
+            error_message = <Text
+            style={{color: 'red', fontSize: 18}}
+            >Error while making order, please try again</Text>
+        }
         // console.log('NAV Log', this.props)
         return (
             <ScrollView style={styles.container}>
@@ -96,6 +113,10 @@ class Checkout extends Component {
                         fontSize: 18
                     }}>Total</Text>
                     <Text style={styles.totalPrice}>{'₦' + '10000'}</Text>
+                </View>
+                <View>
+                    {success_message}
+                    {error_message}
                 </View>
                 <DefaultButton
                     clicked={this.orderHandler}
@@ -133,7 +154,8 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => {
     return {
-        onOrder: (orderData, token) => dispatch(actions.order(orderData, token))
+        onOrder: (orderData, token) => dispatch(actions.order(orderData, token)),
+        onClearOrderMessages: () => dispatch(actions.clearOrderMessages())
     }
 }
 
@@ -142,7 +164,9 @@ const mapStateToProps = state => {
         cartData: state.cart.cartData,
         totalPrice: state.cart.totalPrice,
         customerToken: state.customer.token,
-        loggedIn: state.customer.loggedIn
+        loggedIn: state.customer.loggedIn,
+        order_success: state.order.success,
+        order_failed: state.order.error
     }
 }
 

@@ -97,3 +97,9 @@ export const getOrdersCustomerFailed = (error) => {
         error: error
     }
 }
+
+export const clearOrderMessages = () => {
+    return {
+        type: actionTypes.CLEAR_ORDER_MESSAGES
+    }
+}

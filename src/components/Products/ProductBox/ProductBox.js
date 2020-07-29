@@ -14,13 +14,14 @@ import PlaceholderImage from './ProductImage';
 const productBox = (props) => {
     const productBoxStyle = [styles.container, props.style];
 
-    const { id, image, name, price } = props
+    const { id, image, name, price, desc } = props
 
     const productObj = {
         id,
         name,
         price,
-        image
+        image,
+        desc
     }
 
     const [ImageIsLoading, setImageIsLoaded] = useState(true);

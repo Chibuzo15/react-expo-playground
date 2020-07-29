@@ -2,7 +2,7 @@ import * as actionTypes from './actions';
 import axios from '../../axios';
 
 export const setCart = () => {
-    console.log('set cart called')
+    // console.log('set cart called')
     return dispatch => {
         axios.get('/api/get-cart', {
             withCredentials: true,
@@ -120,5 +120,11 @@ export const clearCartFailed = (error) => {
     return {
         type: actionTypes.CLEAR_CART_FAILED,
         error: error
+    }
+}
+
+export const clearCartMessages = () => {
+    return {
+        type: actionTypes.CLEAR_CART_MESSAGES
     }
 }
