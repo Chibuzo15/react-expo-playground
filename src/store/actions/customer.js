@@ -1,6 +1,6 @@
 import * as actionTypes from './actions';
 import axios from '../../axios';
-import AsyncStorage from '@react-native-community/async-storage';
+import { AsyncStorage } from 'react-native';
 
 export const login = (userObj) => {
     return dispatch => {
@@ -9,13 +9,13 @@ export const login = (userObj) => {
                 const expirationDate = new Date(new Date().getTime() + 3600000)
 
                 AsyncStorage.setItem('customer_token', res.data.token);
-                AsyncStorage.setItem('customer_expirationDate', JSON.stringify(expirationDate), (err)=> {
-                    if(err){
+                AsyncStorage.setItem('customer_expirationDate', JSON.stringify(expirationDate), (err) => {
+                    if (err) {
                         console.log("Asyncstorage customer error");
                         throw err;
                     }
                     console.log("Asyncstorage customer success");
-                }).catch((err)=> {
+                }).catch((err) => {
                     console.log("error is: " + err);
                 });
                 AsyncStorage.setItem('customer_userId', res.data.customer._id)
@@ -49,12 +49,12 @@ export function logout(token) {
         const headers = {
             'Content-Type': 'application/json',
             'x-auth': token
-          }
-          console.log('logout token :', token)
-        axios.delete('/api/customers/logout', {headers: headers})
+        }
+        console.log('logout token :', token)
+        axios.delete('/api/customers/logout', { headers: headers })
             .then(() => {
                 dispatch(logoutSuccess())
-            }) .catch((error) => {
+            }).catch((error) => {
                 dispatch(logoutFailed(error))
             })
     }

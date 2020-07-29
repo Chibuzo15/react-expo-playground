@@ -1,10 +1,16 @@
 {
   "name": "urvan-ecommerce-app",
   "displayName": "Urvan ecommerce app",
-  "icon": "icon.png",
+  "githubUrl": "https://github.com/Chibuzo15/react-expo-playground",
   "expo": {
-    "name": "urvan-ecommerce-app",
-    "slug": "urvan-ecommerce-app",
+    "name": "Urvan ecommerce mobile app",
+    "slug": "urvan-ecommerce-mobile-app",
+    "icon": "./assets/images/icon.png",
+    "splash": {
+      "backgroundColor": "#ffffff",
+      "image": "./assets/images/splash.png",
+      "resizeMode": "contain"
+    },
     "ios": {
       "bundleIdentifier": "com.urvan.testapp",
       "buildNumber": "1.0.0"
@@ -16,6 +22,7 @@
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "description": "A cross-platform online store mobile application"
   }
 }
