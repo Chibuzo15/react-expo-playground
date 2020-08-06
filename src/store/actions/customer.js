@@ -2,6 +2,13 @@ import * as actionTypes from './actions';
 import axios from '../../axios';
 import { AsyncStorage } from 'react-native';
 
+export const clearMessages = (error) => {
+    return {
+        type: actionTypes.LOGIN_FAILED,
+        error: error
+    }
+}
+
 export const login = (userObj) => {
     return dispatch => {
         axios.post('/api/customers/login', userObj)

@@ -4,6 +4,7 @@ const initialState = {
     loggedIn: false,
     userObj: null,
     error: null,
+    success: null,
     token: null
 }
 
@@ -29,12 +30,20 @@ const customerReducer = (state = initialState, action) => {
                 ...state,
                 customerId: null,
                 token: null,
+                success: true,
                 loggedIn: false
             }
         case actionTypes.LOGOUT_FAILED:
             return {
                 ...state,
+                success: false,
                 error: action.error
+            }
+        case actionTypes.CLEAR_LOGIN_MESSAGES:
+            return {
+                ...state,
+                success: null,
+                error: null
             }
         default:
             return state;

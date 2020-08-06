@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {
     View,
+    Keyboard,
+    ScrollView,
     Text,
     StyleSheet,
     Dimensions,
@@ -11,6 +13,7 @@ import Input from '../../UI/Input/Input';
 import DefaultButton from '../../UI/Button/button';
 
 import * as actions from '../../../store/actions/index';
+import {clearMessages} from '../../../store/actions/index'
 import { connect } from 'react-redux'
 import { TouchableHighlight } from 'react-native-gesture-handler';
 
@@ -49,6 +52,11 @@ class Login extends Component {
             },
         },
     }
+
+    componentDidMount(){
+        this.props.onClearLoginMessages()
+    }
+
     checkValidity(value, rules) {
         let isValid = true;
         if (!rules) {
@@ -95,6 +103,7 @@ class Login extends Component {
 
 
     handleLogin = () => {
+        Keyboard.dismiss()
         const userObj = {
             email: this.state.controls.email.value,
             password: this.state.controls.password.value
@@ -118,6 +127,22 @@ class Login extends Component {
     }
 
     render() {
+        let success_message = null;
+        if(this.props.success){
+           success_message = <Text
+            style={{color: 'green', fontSize: 18}}
+            >successfully logged in</Text>
+        }
+
+        let error_message = null;
+        if(this.props.error){
+            error_message = <><Text
+            style={{color: 'red', fontSize: 18}}
+            >Error while logging in</Text>
+            {/* <Text>{this.props.error}</Text> */}
+            </>
+        }
+
         // Build form array
         const formElementsArray = [];
         for (let key in this.state.controls) {
@@ -192,7 +217,8 @@ class Login extends Component {
                     title='Register'
                 />
             </View>
-
+                    {success_message}
+                    {error_message}
             <View
                 style={{
                     marginTop: 50,
@@ -265,13 +291,16 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
     return {
-        loggedIn: state.customer.loggedIn
+        loggedIn: state.customer.loggedIn,
+        error: state.customer.error,
+        success: state.customer.success
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        login: (userObj) => dispatch(actions.login(userObj))
+        login: (userObj) => dispatch(actions.login(userObj)),
+        onClearLoginMessages: () => dispatch(actions.clearMessages())
     }
 }
 

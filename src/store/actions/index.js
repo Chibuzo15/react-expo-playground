@@ -15,6 +15,7 @@ export {
 export {
     login,
     logout,
+    clearMessages,
     customerAuthCheckState
 } from './customer';
 
