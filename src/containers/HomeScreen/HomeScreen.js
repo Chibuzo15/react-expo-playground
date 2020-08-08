@@ -10,10 +10,13 @@ import {
     TouchableHighlight
 } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
+import { connect} from 'react-redux';
 
 import Card from '../../components/UI/Card/card';
 import Searchbar from '../../components/SearchBar/SearchBar';
 import MyStatusBar from '../../components/StatusBar/StatusBar';
+
+import * as actions from '../../store/actions/index';
 
 
 class HomeScreen extends Component {
@@ -32,6 +35,10 @@ class HomeScreen extends Component {
         showSearch: false,
         fadeAnim: new Animated.Value(0),
         headerOpacity: new Animated.Value(1)
+    }
+
+    componentDidMount (){
+        this.props.onCheckAuth()
     }
 
     handleCategoryClick = () => {
@@ -153,4 +160,10 @@ const styles = StyleSheet.create({
     }
 });
 
-export default HomeScreen
+const mapDispatchToProps = dispatch => {
+    return {
+        onCheckAuth: () => dispatch(actions.customerAuthCheckState()),
+    }
+}
+
+export default connect(null, mapDispatchToProps)(HomeScreen)

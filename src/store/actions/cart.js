@@ -76,7 +76,7 @@ export function removeFromCart(id) {
             withCredentials: true,
         })
             .then((res) => {
-                console.log(res.data)
+                // console.log(res.data)
                 dispatch(removeFromCartSuccess(res.data))
                 dispatch(setCart())
             }) .catch((error) => {

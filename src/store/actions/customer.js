@@ -9,19 +9,44 @@ export const clearMessages = (error) => {
     }
 }
 
+const storeToken = async (userToken) => {
+    try {
+        await AsyncStorage.setItem('customer_token', userToken);
+        console.log("Asyncstorage customer success");
+    } catch (error) {
+      console.log("Something went wrong storing customer_token", error);
+    }
+  }
+
+  const getToken = async () => {
+    try {
+      let customerToken = await AsyncStorage.getItem('customer_token');
+      return customerToken
+    } catch (error) {
+      console.log("Something went wrong getting token", error);
+    }
+  }
+
+  const getTokenExpirationDate = async () => {
+    try {
+      let expirationDate = await AsyncStorage.getItem('customer_expirationDate');
+      return expirationDate
+    } catch (error) {
+      console.log("Something went wrong getting token", error);
+    }
+  }
+
 export const login = (userObj) => {
     return dispatch => {
         axios.post('/api/customers/login', userObj)
             .then(res => {
                 const expirationDate = new Date(new Date().getTime() + 3600000)
-
-                AsyncStorage.setItem('customer_token', res.data.token);
+                storeToken(res.data.token)
                 AsyncStorage.setItem('customer_expirationDate', JSON.stringify(expirationDate), (err) => {
                     if (err) {
-                        console.log("Asyncstorage customer error");
+                        // console.log("Asyncstorage customer error");
                         throw err;
                     }
-                    console.log("Asyncstorage customer success");
                 }).catch((err) => {
                     console.log("error is: " + err);
                 });
@@ -84,6 +109,7 @@ export const logoutFailed = (error) => {
 }
 
 export const checkAuthTimeout = (expirationTime) => {
+    console.log('expiration Time ',expirationTime)
     return dispatch => {
         setTimeout(() => {
             dispatch(logout());
@@ -100,19 +126,31 @@ export const setCustomerAuthRedirectPath = (path) => {
 
 export const customerAuthCheckState = () => {
     return dispatch => {
-        const token = AsyncStorage.getItem('customer_token');
-        if (!token) {
-            dispatch(logout())
-        } else {
-            const expirationDate = new Date(AsyncStorage.getItem('customer_expirationDate'))
-            if (expirationDate <= new Date()) {
-                dispatch(logout())
-            } else {
-                const userId = AsyncStorage.getItem('customer_userId')
-                dispatch(loginSuccess(null, token))
-                dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000))
-            }
+        console.log('customerAuth Check called')
 
-        }
+        // const token = getToken()
+        // console.log('check Auth Token ', token)
+        getToken()
+        .then((token) => {
+            console.log(token)
+            if (!token) {
+                console.log('logoutsuccess')
+                dispatch(logoutSuccess())
+            } else {
+                // const expirationDate = new Date(AsyncStorage.getItem('customer_expirationDate'))
+                const expirationDate = getTokenExpirationDate()
+                console.log('expiration date ', expirationDate)
+                if (expirationDate <= new Date()) {
+                    dispatch(logout(token))
+                } else {
+                    console.log('valid login')
+                    // const userId = AsyncStorage.getItem('customer_userId')
+                    dispatch(loginSuccess(null, token))
+                    // dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000))
+                }
+
+            }
+        })
+
     };
 }

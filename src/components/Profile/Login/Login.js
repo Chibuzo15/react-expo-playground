@@ -19,8 +19,7 @@ import { TouchableHighlight } from 'react-native-gesture-handler';
 
 class Login extends Component {
     state = {
-        // email: '',
-        // password: '',
+        isConnected: true,
         controls: {
             email: {
                 elementType: 'input',
@@ -108,7 +107,7 @@ class Login extends Component {
             email: this.state.controls.email.value,
             password: this.state.controls.password.value
         }
-        console.log(userObj)
+        // console.log(userObj)
         this.props.login(userObj)
     }
 
