@@ -22,25 +22,25 @@ const networkErrorBox = (props) => {
             opacity: fadeAnim // Bind opacity to animated value
         }]}>
             <View style={styles.errorBox} >
-                <Text style={styles.text}>Network Error: no internet connection</Text>
+                <Text style={styles.text}>{"Network Error: " + props.message}</Text>
             </View>
-            <FetchData
+            {/* <FetchData
             func={props.function}
-            />
+            /> */}
         </Animated.View>
     )
 }
 
-function FetchData({func}) {
-    console.log('fetchData called ', func )
-    useFocusEffect(
-        React.useCallback(() => {
-            func()
-        }, [func])
-    );
+// function FetchData({func}) {
+//     console.log('fetchData called ', func )
+//     useFocusEffect(
+//         React.useCallback(() => {
+//             func()
+//         }, [func])
+//     );
 
-    return null;
-}
+//     return null;
+// }
 
 const deviceHeight = Dimensions.get('window').height;
 

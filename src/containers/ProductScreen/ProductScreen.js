@@ -4,9 +4,10 @@ import {
     Text,
     View,
     FlatList,
-    StatusBar
+    // StatusBar
 } from 'react-native';
 import { connect } from 'react-redux';
+import NetInfo from "@react-native-community/netinfo";
 
 import * as actions from '../../store/actions/index';
 
@@ -21,7 +22,7 @@ class ProductScreen extends Component {
     }
 
     componentDidMount() {
-        console.log('Products screen component mounted')
+        this.props.onClearMessages()
         this.props.onGetProducts()
         //get number of products to format flatlist design
         this.props.products ? this.setState({ noOfProducts: this.props.products.length }) : null
@@ -59,9 +60,25 @@ class ProductScreen extends Component {
 
     render() {
         let products_error = null;
+
+        const unsubscribe = NetInfo.addEventListener(state => {
+            console.log("Connection type", state.type);
+            console.log("Is connected?", state.isConnected);
+            if(!state.isConnected){
+                products_error = <NetworkErrorBox
+                    function={this.props.onGetProducts}
+                    message="Device is not connected"
+                />
+            }
+          });
+
+          unsubscribe()
+
         if (this.props.products_error) {
+            console.log(this.props.products_error)
             products_error = <NetworkErrorBox
                     function={this.props.onGetProducts}
+                    message="Error getting products"
                 />
         }
 
@@ -80,10 +97,8 @@ class ProductScreen extends Component {
                 <View style={styles.productsWrapper}>
                     {products}
                 </View>
-                <NetworkErrorBox
-                    function={this.props.onGetProducts}
-                />
-                {/* {products_error} */}
+
+                {products_error}
             </View>
         )
     }
@@ -114,7 +129,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onGetProducts: () => dispatch(actions.getProducts())
+        onGetProducts: () => dispatch(actions.getProducts()),
+        onClearMessages: () => dispatch(actions.clearProductMessages())
     }
 }
 

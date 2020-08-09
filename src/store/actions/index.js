@@ -23,6 +23,7 @@ export {
     getProducts,
     deleteProduct,
     addProduct,
+    clearProductMessages,
     uploadProductImage
 } from './products';
 
