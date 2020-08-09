@@ -1,7 +1,6 @@
 import * as actionTypes from './actions';
 import axios from '../../axios';
 import { AsyncStorage } from 'react-native';
-import moment from 'moment';
 
 export const clearMessages = (error) => {
     return {
@@ -141,8 +140,7 @@ export const customerAuthCheckState = () => {
                     // const expirationDate = new Date(AsyncStorage.getItem('customer_expirationDate'))
                     getTokenExpirationDate()
                         .then((expirationDate) => {
-                            console.log('type of date :', expirationDate)
-                            console.log(expirationDate < new Date)
+                            // console.log('expiration date :', expirationDate)
                             if (expirationDate <= new Date()) {
                                 dispatch(logout(token))
                             } else {

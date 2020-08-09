@@ -9,6 +9,7 @@ export const getProductsSuccess = (products) => {
 }
 
 export const getProductsFailed = () => {
+    console.log('get products failed')
     return {
         type: actionTypes.GET_PRODUCTS_FAILED
     }

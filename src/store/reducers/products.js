@@ -18,6 +18,7 @@ const productReducer = (state = initialState, action) => {
         case actionTypes.GET_PRODUCTS_FAILED:
             return {
                 ...state,
+                products: null,
                 products_error: true,
             }
         case actionTypes.ADD_PRODUCT_SUCCESS:

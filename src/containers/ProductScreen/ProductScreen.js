@@ -13,6 +13,7 @@ import * as actions from '../../store/actions/index';
 import ProductBox from '../../components/Products/ProductBox/ProductBox';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import MyStatusBar from '../../components/StatusBar/StatusBar';
+import NetworkErrorBox from '../../components/Error/NetworkErrorBox';
 
 class ProductScreen extends Component {
     state = {
@@ -20,8 +21,8 @@ class ProductScreen extends Component {
     }
 
     componentDidMount() {
+        console.log('Products screen component mounted')
         this.props.onGetProducts()
-
         //get number of products to format flatlist design
         this.props.products ? this.setState({ noOfProducts: this.props.products.length }) : null
     }
@@ -58,9 +59,10 @@ class ProductScreen extends Component {
 
     render() {
         let products_error = null;
-        if(this.props.products_error){
-            products_error = <Text style={{color: 'red', fontSize: 18}}
-            >Error getting products</Text>
+        if (this.props.products_error) {
+            products_error = <NetworkErrorBox
+                    function={this.props.onGetProducts}
+                />
         }
 
         let products = this.props.products ?
@@ -73,12 +75,15 @@ class ProductScreen extends Component {
         return (
             <View style={styles.container}>
                 {/* <StatusBar barStyle="light-content" /> */}
-                <MyStatusBar backgroundColor="#e23e22" barStyle="light-content"/>
+                <MyStatusBar backgroundColor="#e23e22" barStyle="light-content" />
                 <Text style={styles.TitleText}>products</Text>
                 <View style={styles.productsWrapper}>
                     {products}
                 </View>
-                {products_error}
+                <NetworkErrorBox
+                    function={this.props.onGetProducts}
+                />
+                {/* {products_error} */}
             </View>
         )
     }

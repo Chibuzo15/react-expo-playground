@@ -9,7 +9,7 @@ import {
     TouchableHighlight
 } from 'react-native';
 import { connect } from 'react-redux';
-import { useFocusEffect} from '@react-navigation/native'
+import { useFocusEffect} from '@react-navigation/native';
 
 import * as actions from '../../store/actions/index';
 
