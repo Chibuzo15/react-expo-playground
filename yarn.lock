@@ -6243,11 +6243,6 @@ expo-location@~8.2.1:
   dependencies:
     invariant "^2.2.4"
 
-expo-network@~2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/expo-network/-/expo-network-2.2.1.tgz#d72308d1636a814b6809012bb81eb8646cab0acd"
-  integrity sha512-O76Vh3t/ZC1ZMR0/JNOvaFmiDckP3nbGWSy5fcULf9Qgi9qYqksf7PssDAlo9cGKMD4g/dUTkrQn9QIzdxZCjQ==
-
 expo-permissions@~9.0.1:
   version "9.0.1"
   resolved "https://registry.yarnpkg.com/expo-permissions/-/expo-permissions-9.0.1.tgz#dc10b58654bbe39bbbed5827369942b01b08055e"
@@ -10059,7 +10054,7 @@ mkdirp@^1.0.3, mkdirp@^1.0.4:
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-1.0.4.tgz#3eb5ed62622756d79a5f0e2a221dfebad75c2f7e"
   integrity sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==
 
-moment@^2.10.6:
+moment@^2.10.6, moment@^2.27.0:
   version "2.27.0"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.27.0.tgz#8bff4e3e26a236220dfe3e36de756b6ebaa0105d"
   integrity sha512-al0MUK7cpIcglMv3YF13qSgdAIqxHTO7brRtaz3DlSULbqfazqkc5kEjNrLDOM7fsjshoFIihnU8snrP7zUvhQ==

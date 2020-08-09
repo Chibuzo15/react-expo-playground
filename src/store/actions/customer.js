@@ -1,6 +1,7 @@
 import * as actionTypes from './actions';
 import axios from '../../axios';
 import { AsyncStorage } from 'react-native';
+import moment from 'moment';
 
 export const clearMessages = (error) => {
     return {
@@ -14,27 +15,28 @@ const storeToken = async (userToken) => {
         await AsyncStorage.setItem('customer_token', userToken);
         console.log("Asyncstorage customer success");
     } catch (error) {
-      console.log("Something went wrong storing customer_token", error);
+        console.log("Something went wrong storing customer_token", error);
     }
-  }
+}
 
-  const getToken = async () => {
+const getToken = async () => {
     try {
-      let customerToken = await AsyncStorage.getItem('customer_token');
-      return customerToken
+        let customerToken = await AsyncStorage.getItem('customer_token');
+        return customerToken
     } catch (error) {
-      console.log("Something went wrong getting token", error);
+        console.log("Something went wrong getting token", error);
     }
-  }
+}
 
-  const getTokenExpirationDate = async () => {
+const getTokenExpirationDate = async () => {
     try {
-      let expirationDate = await AsyncStorage.getItem('customer_expirationDate');
-      return expirationDate
+        let expirationDate = await AsyncStorage.getItem('customer_expirationDate');
+        expirationDate = new Date(JSON.parse(expirationDate))
+        return expirationDate
     } catch (error) {
-      console.log("Something went wrong getting token", error);
+        console.log("Something went wrong getting token", error);
     }
-  }
+}
 
 export const login = (userObj) => {
     return dispatch => {
@@ -82,7 +84,7 @@ export function logout(token) {
             'Content-Type': 'application/json',
             'x-auth': token
         }
-        console.log('logout token :', token)
+        // console.log('logout token :', token)
         axios.delete('/api/customers/logout', { headers: headers })
             .then(() => {
                 dispatch(logoutSuccess())
@@ -109,7 +111,7 @@ export const logoutFailed = (error) => {
 }
 
 export const checkAuthTimeout = (expirationTime) => {
-    console.log('expiration Time ',expirationTime)
+    console.log('expiration Time ', expirationTime)
     return dispatch => {
         setTimeout(() => {
             dispatch(logout());
@@ -131,26 +133,26 @@ export const customerAuthCheckState = () => {
         // const token = getToken()
         // console.log('check Auth Token ', token)
         getToken()
-        .then((token) => {
-            console.log(token)
-            if (!token) {
-                console.log('logoutsuccess')
-                dispatch(logoutSuccess())
-            } else {
-                // const expirationDate = new Date(AsyncStorage.getItem('customer_expirationDate'))
-                const expirationDate = getTokenExpirationDate()
-                console.log('expiration date ', expirationDate)
-                if (expirationDate <= new Date()) {
-                    dispatch(logout(token))
+            .then((token) => {
+                if (!token) {
+                    console.log('logoutsuccess')
+                    dispatch(logoutSuccess())
                 } else {
-                    console.log('valid login')
-                    // const userId = AsyncStorage.getItem('customer_userId')
-                    dispatch(loginSuccess(null, token))
-                    // dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000))
+                    // const expirationDate = new Date(AsyncStorage.getItem('customer_expirationDate'))
+                    getTokenExpirationDate()
+                        .then((expirationDate) => {
+                            console.log('type of date :', expirationDate)
+                            console.log(expirationDate < new Date)
+                            if (expirationDate <= new Date()) {
+                                dispatch(logout(token))
+                            } else {
+                                // const userId = AsyncStorage.getItem('customer_userId')
+                                dispatch(loginSuccess(null, token))
+                                // dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000))
+                            }
+                        })
                 }
-
-            }
-        })
+            })
 
     };
 }
