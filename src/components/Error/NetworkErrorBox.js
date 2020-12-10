@@ -1,46 +1,48 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { View, Text, Animated, StyleSheet, Dimensions } from 'react-native';
 import { useFocusEffect} from '@react-navigation/native'
 
 const networkErrorBox = (props) => {
     const fadeAnim = useRef(new Animated.Value(1)).current;
+    const [containerStyle, setStyle] = useState([styles.container, {opacity: fadeAnim}]);
 
     const fadeOut = () => {
-        console.log('fadeout called :')
+        console.log('fadeout started')
         Animated.timing(fadeAnim, {
             delay: 2500,
             toValue: 0,
             duration: 1500,
             useNativeDriver: true
-        }).start();
+        }).start(() => {
+            console.log('endedr')
+            // setStyle([styles.container_hide, styles.container])
+        });
     };
 
     fadeOut()
 
     return (
-        <Animated.View style={[styles.container, {
-            opacity: fadeAnim // Bind opacity to animated value
-        }]}>
+        <Animated.View style={containerStyle}>
             <View style={styles.errorBox} >
                 <Text style={styles.text}>{"Network Error: " + props.message}</Text>
             </View>
-            {/* <FetchData
+            <FetchData
             func={props.function}
-            /> */}
+            />
         </Animated.View>
     )
 }
 
-// function FetchData({func}) {
-//     console.log('fetchData called ', func )
-//     useFocusEffect(
-//         React.useCallback(() => {
-//             func()
-//         }, [func])
-//     );
+function FetchData({func}) {
+    console.log('fetchData called ', func )
+    useFocusEffect(
+        React.useCallback(() => {
+            func()
+        }, [func])
+    );
 
-//     return null;
-// }
+    return null;
+}
 
 const deviceHeight = Dimensions.get('window').height;
 
@@ -48,6 +50,7 @@ const styles = StyleSheet.create({
     container: {
         position: 'absolute',
         backgroundColor: 'transparent',
+        flex: 1,
         top: 0,
         left: 0,
         right: 0,
@@ -55,6 +58,9 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         // paddingBottom: 30,
         alignItems: 'center'
+    },
+    container_hide:{
+        position: 'relative'
     },
     errorBox: {
         backgroundColor: 'black',

@@ -222,7 +222,7 @@ class Login extends Component {
                 style={{
                     marginTop: 50,
                 }}>
-                <Text>Testmail: tester@mail.com</Text>
+                <Text>Testmail: Test@test.com</Text>
                 <Text>Testpassword: test123</Text>
             </View>
         </View>;
