@@ -64,31 +64,36 @@ class ProductScreen extends Component {
         const unsubscribe = NetInfo.addEventListener(state => {
             console.log("Connection type", state.type);
             console.log("Is connected?", state.isConnected);
-            if(!state.isConnected){
+            if (!state.isConnected) {
                 products_error = <NetworkErrorBox
                     function={this.props.onGetProducts}
                     message="Device is not connected"
                 />
             }
-          });
+        });
 
-          unsubscribe()
+        unsubscribe()
 
         if (this.props.products_error) {
             console.log(this.props.products_error)
             products_error = <NetworkErrorBox
-                    function={this.props.onGetProducts}
-                    message="Error getting products"
-                />
+                function={this.props.onGetProducts}
+                message="Error getting products"
+            />
         }
 
-        let products = this.props.products ?
-            <FlatList
+        let products = this.props.productsLoading ? <Spinner /> : null;
+
+
+        if (this.props.products && !this.props.productsLoading) {
+            products = <FlatList
                 data={this.props.products}
                 renderItem={this.renderProducts}
                 keyExtractor={item => item.name}
                 numColumns={2}
-            /> : <Spinner />;
+            />
+        }
+
         return (
             <View style={styles.container}>
                 {/* <StatusBar barStyle="light-content" /> */}
@@ -123,7 +128,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
     return {
         products: state.products.products,
-        products_error: state.products.products_error
+        products_error: state.products.products_error,
+        productsLoading: state.products.productsLoading
     }
 }
 

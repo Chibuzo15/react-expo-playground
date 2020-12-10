@@ -5,6 +5,7 @@ import {
     StyleSheet,
     Image,
     ImageBackground,
+    ActivityIndicator,
     Button,
     Dimensions
 } from 'react-native';
@@ -20,7 +21,7 @@ class SingleProduct extends Component {
         imageisLoading: true
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.onClearCartMessages()
     }
 
@@ -28,16 +29,16 @@ class SingleProduct extends Component {
         const { id, name, price, image, desc } = this.props.route.params
 
         let success_message = null;
-        if(this.props.cart_success){
-           success_message = <Text
-            style={{color: 'green', fontSize: 18}}
+        if (this.props.cart_success) {
+            success_message = <Text
+                style={{ color: 'green', fontSize: 18 }}
             >Product successfully added to cart</Text>
         }
 
         let error_message = null;
-        if(this.props.cart_error){
+        if (this.props.cart_error) {
             error_message = <Text
-            style={{color: 'red', fontSize: 18}}
+                style={{ color: 'red', fontSize: 18 }}
             >Error adding product to cart</Text>
         }
         // const {}
@@ -61,11 +62,13 @@ class SingleProduct extends Component {
                 </>
                 <Text style={styles.productPrice}>{'₦' + price.toString()}</Text>
                 <View style={styles.addToCart}>
-                    <Button
-                        onPress={() => this.props.onAddToCart(id)}
-                        title='Add to Cart'
-                        color='tomato'
-                    />
+                    {this.props.addToCartLoading ? <ActivityIndicator size="large" color="tomato" /> :
+                        <Button
+                            onPress={() => this.props.onAddToCart(id)}
+                            title='Add to Cart'
+                            color='tomato'
+                        />
+                    }
                 </View>
                 {success_message}
                 {error_message}
@@ -102,7 +105,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
     return {
         cart_success: state.cart.success,
-        cart_error: state.cart.error
+        cart_error: state.cart.error,
+        addToCartLoading: state.cart.addToCartLoading
     }
 }
 

@@ -4,15 +4,23 @@ const initialState = {
     loggedIn: false,
     userObj: null,
     error: null,
+    customerLoading: false,
     success: null,
     token: null
 }
 
 const customerReducer = (state = initialState, action) => {
     switch (action.type) {
+        case actionTypes.LOGIN_START:
+            return {
+                ...state,
+                customerLoading: true,
+                error: null
+            }
         case actionTypes.LOGIN_SUCCESS:
             return {
                 ...state,
+                customerLoading: false,
                 loggedIn: true,
                 customerId: action.userObj,
                 token: action.token
@@ -20,6 +28,7 @@ const customerReducer = (state = initialState, action) => {
         case actionTypes.LOGIN_FAILED:
             return {
                 ...state,
+                customerLoading: false,
                 customerId: null,
                 token: null,
                 loggedIn: false,

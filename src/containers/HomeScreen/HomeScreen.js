@@ -118,6 +118,13 @@ class HomeScreen extends Component {
                         />
                     })}
                 </View>
+                <View>
+                    <Text style={{
+                        textAlign: 'center',
+                        color:'grey',
+                        paddingVertical: 7
+                    }}>version 1.2</Text>
+                </View>
             </ScrollView>
         )
     }

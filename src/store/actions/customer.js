@@ -4,7 +4,7 @@ import { AsyncStorage } from 'react-native';
 
 export const clearMessages = (error) => {
     return {
-        type: actionTypes.LOGIN_FAILED,
+        type: actionTypes.CLEAR_LOGIN_MESSAGES,
         error: error
     }
 }
@@ -39,6 +39,8 @@ const getTokenExpirationDate = async () => {
 
 export const login = (userObj) => {
     return dispatch => {
+        dispatch(loginStart())
+
         axios.post('/api/customers/login', userObj)
             .then(res => {
                 const expirationDate = new Date(new Date().getTime() + 3600000)
@@ -59,6 +61,12 @@ export const login = (userObj) => {
                 console.log(error)
                 dispatch(loginFailed(error))
             })
+    }
+}
+
+export const loginStart = () => {
+    return {
+        type: actionTypes.LOGIN_START
     }
 }
 

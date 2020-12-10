@@ -4,6 +4,8 @@ import axios from '../../axios';
 export const setCart = () => {
     // console.log('set cart called')
     return dispatch => {
+        dispatch(setCartStart())
+
         axios.get('/api/get-cart', {
             withCredentials: true,
         })
@@ -31,6 +33,12 @@ export const setCart = () => {
     }
 }
 
+export const setCartStart = () => {
+    return {
+        type: actionTypes.SET_CART_START
+    }
+}
+
 export const setCartSuccess = (cart) => {
     return {
         type: actionTypes.SET_CART_SUCCESS,
@@ -47,12 +55,20 @@ export const setCartFailed = (error) => {
 
 export function addToCart(id) {
     return dispatch => {
+        dispatch(addToCartStart())
+
         axios.get(`/api/add-to-cart/${id}`, { withCredentials: true })
             .then((res) => {
                 dispatch(addToCartSuccess(id))
             }).catch((error) => {
                 dispatch(addToCartFailed(error))
             })
+    }
+}
+
+export const addToCartStart = () => {
+    return {
+        type: actionTypes.ADD_TO_CART_START
     }
 }
 

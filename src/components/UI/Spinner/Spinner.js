@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, Text } from 'react-native'
+import { View, Text, ActivityIndicator } from 'react-native'
 
 const spinner = () => {
    return (
-      <View><Text>Loading...</Text></View>
+      <View><ActivityIndicator size="large" color="tomato" /></View>
    )
 };
 

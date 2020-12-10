@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
     View,
     ScrollView,
+    ActivityIndicator,
     Text,
     StyleSheet,
     Dimensions,
@@ -41,7 +42,12 @@ class Cart extends Component {
 
     render() {
         let cartItems = null;
-        if (this.props.cartData && this.props.cartData.totalQty > 0 && this.props.cartData.cartItems) {
+
+        if(this.props.cartLoading){
+            cartItems = <ActivityIndicator size="large" color="tomato" />
+        }
+
+        if (this.props.cartData && this.props.cartData.totalQty > 0 && this.props.cartData.cartItems && !this.props.cartLoading) {
             cartItems = this.props.cartData.cartItems.map(item => {
                 return <CartItem
                     remove={(id) => this.removeFromCart(id)}
@@ -150,7 +156,9 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
     return {
         cartData: state.cart.cartData,
-        loggedIn: state.customer.loggedIn
+        cartLoading: state.cart.cartLoading,
+        //
+        loggedIn: state.customer.loggedIn,
     }
 }
 

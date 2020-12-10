@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
     View,
     Keyboard,
+    ActivityIndicator,
     ScrollView,
     Text,
     StyleSheet,
@@ -126,6 +127,8 @@ class Login extends Component {
     }
 
     render() {
+        console.log('customerLoading ', this.props.customerLoading)
+
         let success_message = null;
         if(this.props.success){
            success_message = <Text
@@ -196,14 +199,17 @@ class Login extends Component {
                         Forgot password?
                     </Text>
                 </TouchableHighlight>
+                {this.props.customerLoading ? <ActivityIndicator size="large" color="tomato" />
+                :
                 <DefaultButton
-                    style={{
-                        margin: 10,
-                        width: deviceWidth * 0.5
-                    }}
-                    clicked={this.handleLogin}
-                    title='Login'
-                />
+                style={{
+                    margin: 10,
+                    width: deviceWidth * 0.5
+                }}
+                clicked={this.handleLogin}
+                title='Login'
+            />
+                }
             </View>
             <View>
                 <Text style={{ textAlign: 'center' }}>Already have an account?</Text>
@@ -212,7 +218,7 @@ class Login extends Component {
                         marginTop: 10,
                         width: deviceWidth * 0.5
                     }}
-                    clicked={() => this.props.navigation.navigate('Home')}
+                    // clicked={() => this.props.navigation.navigate('Home')}
                     title='Register'
                 />
             </View>
@@ -292,7 +298,8 @@ const mapStateToProps = state => {
     return {
         loggedIn: state.customer.loggedIn,
         error: state.customer.error,
-        success: state.customer.success
+        success: state.customer.success,
+        customerLoading: state.customer.customerLoading
     }
 }
 

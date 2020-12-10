@@ -22,7 +22,9 @@ const networkErrorBox = (props) => {
     fadeOut()
 
     return (
-        <Animated.View style={containerStyle}>
+        <Animated.View style={containerStyle}
+        pointerEvents='none'
+        >
             <View style={styles.errorBox} >
                 <Text style={styles.text}>{"Network Error: " + props.message}</Text>
             </View>

@@ -2,6 +2,7 @@ import * as actionTypes from '../actions/actions';
 
 const initialState = {
     products: null,
+    productsLoading: false,
     products_error : false,
     uploaded_image_url: null,
     uploaded_image_id: null,
@@ -10,14 +11,22 @@ const initialState = {
 
 const productReducer = (state = initialState, action) => {
     switch (action.type) {
+        case actionTypes.GET_PRODUCTS_START:
+            return {
+                ...state,
+                productsLoading: true,
+                products_error: null
+            }
         case actionTypes.GET_PRODUCTS_SUCCESS:
             return {
                 ...state,
+                productsLoading: false,
                 products: action.products
             }
         case actionTypes.GET_PRODUCTS_FAILED:
             return {
                 ...state,
+                productsLoading: false,
                 products: null,
                 products_error: true,
             }

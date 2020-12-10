@@ -1,6 +1,12 @@
 import * as actionTypes from './actions';
 import axios from '../../axios';
 
+export const getProductsStart = () => {
+    return {
+        type: actionTypes.GET_PRODUCTS_START
+    }
+}
+
 export const getProductsSuccess = (products) => {
     return {
         type: actionTypes.GET_PRODUCTS_SUCCESS,
@@ -17,6 +23,8 @@ export const getProductsFailed = () => {
 
 export function getProducts() {
     return dispatch => {
+        dispatch(getProductsStart())
+
         axios.get('/api/products')
             .then(res => {
                 // console.log('products', res.data)
